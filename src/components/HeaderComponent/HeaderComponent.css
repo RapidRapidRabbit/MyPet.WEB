@@ -1,0 +1,17 @@
+.custom-navbar{
+    padding: 3px;
+}
+.login-button{
+    height: 100%;
+    border: none;
+    border-radius: 0px;    
+}
+.custom-search-input{
+    border-radius: 0px;
+    margin-left: 50px;
+    min-width: 200px;    
+}
+.search-button{    
+    border: none;
+    border-radius: 0px;    
+}
