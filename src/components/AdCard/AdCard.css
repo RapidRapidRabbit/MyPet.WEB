@@ -1,0 +1,20 @@
+.card{
+    margin: 20px;
+    width: 15rem;     
+}
+.custom-card-title{
+    margin-bottom: 0px;
+}
+.custom-card-body{
+    padding: 10px;
+}
+.custom-card-text{
+    font-size: 10pt;
+}
+.custom-container{
+    display: flex;   
+    flex-flow: row wrap;    
+}
+.date-text{
+    margin-left: 30px;
+}

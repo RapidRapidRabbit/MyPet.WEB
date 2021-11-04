@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./HeaderComponent.css";
 import { setCookie } from "../../services/GetSetCookieService";
-import { CheckToken } from "../../services/CheckLoginService";
+import { CheckToken } from "../../services/ValidateTokenService";
 
 
 const Header = () => {
 
     const[isLogin, setLogin] = useState(false)
 
-    useEffect(()=>{
-       setLogin(CheckToken())
-       console.log(CheckToken());                           
+    useEffect(()=>{      
+       setLogin(CheckToken())                                 
       },[])
     
     const handleSearchClick = (e) =>{
@@ -31,7 +30,7 @@ const Header = () => {
 
         e.preventDefault();
 
-        setCookie("jwtToken", "", {
+        setCookie("jwttoken", "", {
             'max-age': -1
           })
         window.location = "/"  
