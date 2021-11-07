@@ -1,39 +1,21 @@
 import { getCookie } from "../GetSetCookieService";
 import { myPetAuth } from "../Hosts";
 
-export const CheckToken = () =>{
+export const CheckToken = async () =>{
 
-    let jwttoken = getCookie("jwttoken"); 
-
-    if(jwttoken==null){
-        return false;
-    }
-    
-
+    let jwttoken = getCookie("jwttoken");
     let url = new URL("/Account/CheckToken",`${myPetAuth}`);
     url.searchParams.set('jwttoken', jwttoken);
 
-    let request = new XMLHttpRequest();
-    request.open('GET', url, false);    
-          
+   
+    try{
 
-    try {
-
-        request.send();
-
-        if (request.status !== 200) {
-          console.log(`Ошибка ${request.status}: ${request.statusText}`);
-          return false;
-
-        } else {            
-          let response = JSON.parse(request.response);
-          return response.tokenValidation;
-        }
-        
-  } catch(err) { 
-        console.log(err);
-        return false;
-      }
+    const response = await (await fetch(url));
+        let result = await response.json();
+        return result;}
+    catch(err){
+      return undefined;
+    }    
        
     
     

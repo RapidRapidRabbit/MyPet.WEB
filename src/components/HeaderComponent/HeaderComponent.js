@@ -4,14 +4,31 @@ import { setCookie } from "../../services/GetSetCookieService";
 import { CheckToken } from "../../services/ValidateTokenService";
 
 
+
+
 const Header = () => {
 
-    const[isLogin, setLogin] = useState(false)
+    const[isLogin, setLogin] = useState("Loading...")
 
-    useEffect(()=>{      
-       setLogin(CheckToken())                                 
-      },[])
     
+
+    useEffect(()=>{
+     CheckToken().then(data => {
+      try{
+      if(data.tokenValidation==="true"){               
+        setLogin(LoginTrue)
+      }
+      else{
+        setLogin(LoginFalse)        
+      }
+     }
+     catch(err){
+      console.log(err);
+      setLogin(LoginFalse);
+     }
+    })                                                                
+      },[])
+     
     const handleSearchClick = (e) =>{
         e.preventDefault();                    
         //alert("Search");
@@ -40,10 +57,13 @@ const Header = () => {
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignInClick}>Войти</button>
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignUpClick}>Зарегистрироваться</button>      
     </div>);
-
     const LoginTrue = (<div className="">
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          
     </div>);
+
+    
+
+    
 
     return <header>
         <nav className="navbar navbar-dark bg-dark custom-navbar">
@@ -51,10 +71,9 @@ const Header = () => {
     <form className="d-flex">
       <input className="form-control me-2 custom-search-input" type="search" placeholder="Поиск по городам" aria-label="Search"></input>      
       <button className="btn btn-outline-success search-button" onClick={handleSearchClick} type="button">Поиск</button>            
-    </form>
-    {isLogin ? LoginTrue : LoginFalse}
-  </div> 
-  
+    </form>      
+    {isLogin}
+  </div>  
 </nav>    
     </header>    
 }

@@ -1,6 +1,10 @@
 .card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 20px;
-    width: 15rem;     
+    width: 15rem;
+    min-height: 350px;     
 }
 .custom-card-title{
     margin-bottom: 0px;
@@ -17,4 +21,11 @@
 }
 .date-text{
     margin-left: 30px;
+}
+.bottom-card-block{
+    padding: 10px;    
+    align-self: flex-end;
+}
+.custom-img{
+    height: 160px;
 }
