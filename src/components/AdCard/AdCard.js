@@ -4,8 +4,7 @@ import "./AdCard.css";
 
 export const AdCard = ({item}) =>{
 
-let jsondate = item.publicationDate;
-let date = new Date(jsondate);
+let date = new Date(item.publicationDate);
 
 return <div className="card">
     <img src={myPetApi+item.images[0].path} class="card-img-top custom-img" alt="..."></img>

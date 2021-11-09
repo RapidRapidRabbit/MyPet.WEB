@@ -19,7 +19,7 @@ const AdCardContainer = () => {
     return <div className="custom-container">
  
  {data && data.length > 0 && data.map((item, index) => 
-            <AdCard item = {item} key = {index} />
+            <AdCard item = {item} key = {index}/>
         )}
   
   </div>
