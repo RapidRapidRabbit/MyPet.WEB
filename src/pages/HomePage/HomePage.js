@@ -4,7 +4,7 @@ import Header from "../../components/HeaderComponent/HeaderComponent";
 import "./HomePage.css";
 import { setCookie } from "../../services/GetSetCookieService";
 import WhiteOverlay from "../../components/WhiteOverlay/WhiteOverlay";
-import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import  RegisterForm  from "../../components/RegisterForm/RegisterForm";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 
 
