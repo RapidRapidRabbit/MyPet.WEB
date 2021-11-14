@@ -1,39 +1,60 @@
-import "./RegisterForm.css"
-import {useSelector} from 'react-redux'
+import "./SignUpFormComponent.css"
 import { useForm } from 'react-hook-form';
-import WhiteOverlay from "../WhiteOverlay/WhiteOverlay";
+import SignUpService from "../../services/SignUp/SignUpService";
+import { useState } from 'react';
+import { setCookie } from "../../services/GetSetCookieService";
 
 
 
-const RegisterForm = () => {
 
-  const isVisible = useSelector((state) => state.registerFormToggler.isVisible)
+
+const SignUpFormComponent = () => {
+
+  const [serverErrors, setServerError] = useState([]);
 
   const {
     register,
     handleSubmit, 
-    formState: { errors },
-    setError,
+    formState: { errors },   
     getValues,  
   } = useForm();
 
-  const onSubmit = (data) => {
-    alert();
-    console.log(JSON.stringify(data));
-   // setError('firstName', {message: "some message"})
-  }
-  const handleFormClick = (e) =>{         
-    e.stopPropagation();
-    console.log(errors.email)              
-}
+  const onSubmit = (formData) => {    
+
+     SignUpService(formData).then(data => {       
+
+        if(data.status === 400){
+
+          for (let key in data.errors) {            
+            data.errors[key].forEach(function(item, index, array) {
+              let arr = []
+              arr.push(item);
+              setServerError(arr)
+            });            
+          }
+        }
+
+        try{
+          setCookie("jwttoken", data.jwttoken);
+          window.location = '/'
+        }      
+        catch(err){
+       console.error(err);      
+     }
+    })                                        
+    
+   
+  }  
  
 
-const regForm = <WhiteOverlay>
-<div className="registration-form" onClick={handleFormClick}>
+const SignUpForm = 
+<div className="signup-form-container" >
+<div className="form-block">
+<div className="errors-block">{serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => <span className="error-message" key={index} >{item} <br/></span>)}</div> 
 <form onSubmit={handleSubmit(onSubmit)} noValidate>
   <div className="mb-3">
     <label htmlFor="InputEmail1" className="form-label">Email адрес</label>
-    <input type="email" className={"form-control " + (errors.email  ? "is-invalid" : '')}  id="InputEmail1" placeholder="example@mail.ru"
+    <input type="email" className={"form-control " + (errors.email  ? "is-invalid" : '')}  id="InputEmail1" placeholder="example@mail.ru" 
       {...register('email', {
             required: 'Обязательное поле',
             pattern: {
@@ -49,7 +70,7 @@ const regForm = <WhiteOverlay>
   </div>
   <div className="mb-3">
     <label htmlFor="InputPassword1" className="form-label">Пароль</label>
-    <input type="password" className={"form-control " + (errors.password  ? "is-invalid" : '')} id="InputPassword1" placeholder="123"
+    <input type="password" className={"form-control " + (errors.password  ? "is-invalid" : '')} id="InputPassword1" placeholder="123" 
       {...register('password', {
             required: 'Обязательное поле',
             minLength: {
@@ -66,7 +87,7 @@ const regForm = <WhiteOverlay>
   </div>
   <div className="mb-3">
     <label htmlFor="InputPasswordConfirm" className="form-label">Подтвердите пароль</label>
-    <input type="password" className={"form-control " + (errors.passwordConfirm  ? "is-invalid" : '')} id="InputPasswordConfirm" placeholder="123"
+    <input type="password" className={"form-control " + (errors.passwordConfirm  ? "is-invalid" : '')} id="InputPasswordConfirm" placeholder="123" 
       {...register('passwordConfirm', {
             required: 'Обязательное поле',
             minLength: {
@@ -88,12 +109,14 @@ const regForm = <WhiteOverlay>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
 </div>
-</WhiteOverlay>
+</div>
 
 
-  return isVisible===true ? regForm : null 
+
+
+  return SignUpForm; 
   
 }
 
 
-export default RegisterForm;
+export default SignUpFormComponent;

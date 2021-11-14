@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import "./HeaderComponent.css";
 import { setCookie } from "../../services/GetSetCookieService";
 import { CheckToken } from "../../services/ValidateTokenService";
-import { useDispatch } from 'react-redux';
-import {registerFormToggle} from '../../features/RegisterFormToggler/registerFormTogglerSlice'
-import {loginFormToggle} from '../../features/LoginFormToggler/loginFormTogglerSlice'
 
 
 
@@ -15,8 +12,7 @@ import {loginFormToggle} from '../../features/LoginFormToggler/loginFormTogglerS
 
 
 const Header = () => {
-
-    const dispatch = useDispatch();
+    
     const[isLogin, setLogin] = useState("Loading...")    
 
     useEffect(()=>{
@@ -37,17 +33,16 @@ const Header = () => {
       },[])
      
     const handleSearchClick = (e) =>{
-        e.preventDefault();                    
-        //alert("Search");
+        e.preventDefault();       
         alert(document.cookie)
     }
     const handleSignInClick = (e) =>{
         e.preventDefault();
-        dispatch(loginFormToggle({changeVisible: true}))
+        window.location = '/signin'
     }
     const handleSignUpClick = (e) =>{
         e.preventDefault();
-        dispatch(registerFormToggle({changeVisible: true}))           
+        window.location = '/signup'            
     }
 
     const handleLogOutClick = (e) =>{
