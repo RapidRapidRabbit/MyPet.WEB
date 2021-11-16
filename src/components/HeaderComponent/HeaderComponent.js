@@ -30,12 +30,12 @@ const Header = () => {
       setLogin(LoginFalse);
      }
     })                                                                
-      },[])
-     
-    const handleSearchClick = (e) =>{
-        e.preventDefault();       
-        alert(document.cookie)
-    }
+      },[])     
+    
+    const handleMainPageLinkClick = (e) =>{
+        e.preventDefault();
+        window.location = '/'
+    }  
     const handleSignInClick = (e) =>{
         e.preventDefault();
         window.location = '/signin'
@@ -44,7 +44,6 @@ const Header = () => {
         e.preventDefault();
         window.location = '/signup'            
     }
-
     const handleLogOutClick = (e) =>{
 
         e.preventDefault();
@@ -54,12 +53,16 @@ const Header = () => {
           })
         window.location = "/"  
     }
+    const handleAddAdClick = (e) => {
+      window.location = '/addadvertisement'
+    }
 
     const LoginFalse = (<div className="">
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignInClick}>Войти</button>
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignUpClick}>Зарегистрироваться</button>      
     </div>);
     const LoginTrue = (<div className="">
+    <button type="button" className="btn btn-outline-primary login-button" onClick={handleAddAdClick}>Добавить объявление</button>
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          
     </div>);
 
@@ -69,11 +72,8 @@ const Header = () => {
 
     return <header>
         <nav className="navbar navbar-dark bg-dark custom-navbar">
-  <div className="container-fluid">
-    <form className="d-flex">
-      <input className="form-control me-2 custom-search-input" type="search" placeholder="Поиск по городам" aria-label="Search"></input>      
-      <button className="btn btn-outline-success search-button" onClick={handleSearchClick} type="button">Поиск</button>            
-    </form>      
+  <div className="container-fluid header-container">
+  <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet</button>
     {isLogin}
   </div>  
 </nav>    

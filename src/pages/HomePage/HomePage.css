@@ -1,4 +1,10 @@
+
 body{
-    background-color: gray;
+         background-color: gray; 
+
+        background-image: url(https://images.pexels.com/photos/1510543/pexels-photo-1510543.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
 }
 

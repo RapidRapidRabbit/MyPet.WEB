@@ -1,4 +1,5 @@
-import "./SignUpFormComponent.css"
+import "./SignUpFormComponent.css";
+import "../../App.css";
 import { useForm } from 'react-hook-form';
 import SignUpService from "../../services/SignUp/SignUpService";
 import { useState } from 'react';
@@ -48,9 +49,12 @@ const SignUpFormComponent = () => {
  
 
 const SignUpForm = 
-<div className="signup-form-container" >
+<div className="form-container" >
 <div className="form-block">
-<div className="errors-block">{serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => <span className="error-message" key={index} >{item} <br/></span>)}</div> 
+<div className="errors-block">
+{serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => 
+<span className="error-message" key={index} >{item}<br/></span>)}
+</div> 
 <form onSubmit={handleSubmit(onSubmit)} noValidate>
   <div className="mb-3">
     <label htmlFor="InputEmail1" className="form-label">Email адрес</label>
@@ -66,7 +70,8 @@ const SignUpForm =
     />
     <div className="invalid-feedback">    
     {errors.email && errors.email.message}
-    </div>     
+    </div>
+    <div id="emailHelp" className="form-text">Любой, просто валидный</div>     
   </div>
   <div className="mb-3">
     <label htmlFor="InputPassword1" className="form-label">Пароль</label>
@@ -82,8 +87,7 @@ const SignUpForm =
     <div className="invalid-feedback">
     {errors.password && errors.password.message}
     </div>   
-    <div id="passwordHelp" className="form-text">Любые 3 символа</div>
-    
+    <div id="passwordHelp" className="form-text">Любые 3 символа</div>    
   </div>
   <div className="mb-3">
     <label htmlFor="InputPasswordConfirm" className="form-label">Подтвердите пароль</label>

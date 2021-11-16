@@ -11,7 +11,18 @@
     margin-left: 50px;
     min-width: 200px;    
 }
+.header-container{
+    padding: 0px;
+}
 .search-button{    
     border: none;
     border-radius: 0px;    
+}
+.main-page-link{
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 0px;
+    min-width: 100px;    
 }

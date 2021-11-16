@@ -3,7 +3,8 @@ import { myPetAuth } from "../Hosts";
 
 export const CheckToken = async () =>{
 
-    let jwttoken = getCookie("jwttoken");    
+    let jwttoken = getCookie("jwttoken");   
+
     let url = new URL("/Account/CheckToken",`${myPetAuth}`);
     url.searchParams.set('jwttoken', jwttoken);
 

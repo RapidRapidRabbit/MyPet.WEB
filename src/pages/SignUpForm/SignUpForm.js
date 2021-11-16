@@ -1,6 +1,7 @@
 import "./SignUpForm.css";
 import React, { Fragment } from "react";
 import SignUpFormComponent from "../../components/SignUpFormComponent/SignUpFormComponent";
+import Header from "../../components/HeaderComponent/HeaderComponent";
 
 
 
@@ -9,7 +10,7 @@ import SignUpFormComponent from "../../components/SignUpFormComponent/SignUpForm
 const SignUpForm = () => {
 
   return <Fragment>    
-       
+  <Header/>     
   <SignUpFormComponent/>       
             
   </Fragment>

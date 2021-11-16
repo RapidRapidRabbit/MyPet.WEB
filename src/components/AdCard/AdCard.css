@@ -6,13 +6,16 @@
     width: 15rem;
     min-height: 350px;     
 }
+.custom-card{
+    background-color: rgba(236, 236, 236, 0.9);
+}
 .custom-card-title{
     margin-bottom: 0px;
 }
-.custom-card-body{
+.custom-card-body{    
     padding: 10px;
 }
-.custom-card-text{
+.custom-card-text{    
     font-size: 10pt;
 }
 .custom-container{
@@ -28,4 +31,5 @@
 }
 .custom-img{
     height: 160px;
+    width: 238px;
 }

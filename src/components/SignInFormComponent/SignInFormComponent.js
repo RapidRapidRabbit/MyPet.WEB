@@ -1,4 +1,5 @@
-import "./SignInFormComponent.css"
+import "./SignInFormComponent.css";
+import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { setCookie } from "../../services/GetSetCookieService";
@@ -43,9 +44,12 @@ const SignInFormComponent = () => {
  
 
 const SignInForm = 
-<div className="signup-form-container" >
+<div className="form-container" >
 <div className="form-block">
-<div className="errors-block">{serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => <span className="error-message" key={index} >{item} <br/></span>)}</div> 
+<div className="errors-block">
+{serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => 
+<span className="error-message" key={index} >{item} <br/></span>)}
+</div> 
 <form onSubmit={handleSubmit(onSubmit)} noValidate>
   <div className="mb-3">
     <label htmlFor="InputEmail1" className="form-label">Email адрес</label>
