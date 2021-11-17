@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import SignUpService from "../../services/SignUp/SignUpService";
 import { useState } from 'react';
 import { setCookie } from "../../services/GetSetCookieService";
+import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 
 
 
@@ -20,29 +21,27 @@ const SignUpFormComponent = () => {
     getValues,  
   } = useForm();
 
-  const onSubmit = (formData) => {    
+  const onSubmit = (formData) => {
+    
+    
 
      SignUpService(formData).then(data => {       
 
+      try{
+        
         if(data.status === 400){
-
-          for (let key in data.errors) {            
-            data.errors[key].forEach(function(item, index, array) {
-              let arr = []
-              arr.push(item);
-              setServerError(arr)
-            });            
-          }
-        }
-
-        try{
+          let errorsArr = GetServerErrors(data.errors);
+          setServerError(errorsArr);
+          return;
+        }        
           setCookie("jwttoken", data.jwttoken);
-          window.location = '/'
-        }      
-        catch(err){
-       console.error(err);      
-     }
+          window.location = '/';
+      }
+      catch{        
+          setServerError(["Something went wrong"]);      
+      }    
     })                                        
+  
     
    
   }  

@@ -1,9 +1,12 @@
 import { myPetApi } from "../Hosts";
 
-export const GetAllAds = async () =>{ 
+export const GetPagedAds = async (pageNumber) =>{
+        
+        let url = new URL("/Advertisement/GetAdsPagedList",`${myPetApi}`);
+        url.searchParams.set('PageNumber', pageNumber);
          
         try{  
-                const response = await fetch(`${myPetApi}/Advertisement/GetAllAdvertisements`);
+                const response = await fetch(url);
                 let result = await response.json();        
                 return result;
         }

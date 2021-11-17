@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { getJwtTokenData } from "../../services/GetJwtTokenData";
 import AddAdvertisementService from "../../services/AddAdvertisementService/AddAdvertisementService";
+import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 
 
 
@@ -45,15 +46,10 @@ const AddAdvertisementFormComponent = () => {
      .then(responseData =>{
       
      try{ 
-      if(responseData.status === 400){        
-        for (let key in responseData.errors) {            
-          responseData.errors[key].forEach((item) => {            
-            let arr = [];
-            arr.push(item);
-            setServerError(arr)
-          });            
-        }
-        return;
+      if(responseData.status === 400){                
+        let errorsArr = GetServerErrors(responseData.errors);
+        setServerError(errorsArr);
+        return;        
       }
       if(responseData.status >= 200 && responseData.status < 300){
         console.log(responseData);

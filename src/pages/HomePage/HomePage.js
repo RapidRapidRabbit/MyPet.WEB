@@ -5,7 +5,7 @@ import "./HomePage.css";
  
 
 
-const HomePage = () => {     
+const HomePage = () => {  
   
     return <Fragment>    
     <Header/>

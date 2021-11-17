@@ -6,13 +6,14 @@ import SignInForm from "./pages/SignInPage/SignInForm";
 import AddAdvertisementPage from "./pages/AddAdvertisementPage/AddAdvertisementPage";
 
 
+
 const Router = () => {
     return <BrowserRouter>
     <Switch>
         <Route exact path = "/" component = {HomePage} />
         <Route exact path = "/SignUp" component = {SignUpForm} />
         <Route exact path = "/SignIn" component = {SignInForm} />
-        <Route exact path = "/AddAdvertisement" component = {AddAdvertisementPage} />         
+        <Route exact path = "/AddAdvertisement" component = {AddAdvertisementPage} />               
     </Switch>
     </BrowserRouter>
 }
