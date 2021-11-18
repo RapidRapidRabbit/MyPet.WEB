@@ -56,6 +56,9 @@ const Header = () => {
     const handleAddAdClick = (e) => {
       window.location = '/addadvertisement'
     }
+    const handleMyAdsClick = (e) => {
+      window.location = '/myads'
+    }
 
     const LoginFalse = (<div className="">
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignInClick}>Войти</button>
@@ -63,6 +66,7 @@ const Header = () => {
     </div>);
     const LoginTrue = (<div className="">
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleAddAdClick}>Добавить объявление</button>
+    <button type="button" className="btn btn-outline-primary login-button" onClick={handleMyAdsClick}>Мои объявления</button>
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          
     </div>);
 

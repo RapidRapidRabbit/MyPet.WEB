@@ -1,6 +1,6 @@
-import "./AdCard.css";
+import "./AdCardContainer.css";
 import { GetPagedAds } from "../../services/GetPagedAdsService";
-import { AdCard } from "./AdCard";
+import { AdCard } from "../AdCard/AdCard";
 import useInfiniteScrollHook from "../../features/useInfiniteScrollHook/useInfiniteScrollHook";
 import { useEffect, useState, useRef } from "react";
 
@@ -16,8 +16,8 @@ const AdCardContainer = () => {
 
     page.current++;
 
-    GetPagedAds(page.current)
-    .then(response => setData(prevState => response.length > 0 ? prevState.concat(response) : prevState))
+    GetPagedAds(page.current).then(response => 
+      setData(prevState => response.length > 0 ? prevState.concat(response) : prevState))
 
     setIsFetching(false);    
     
@@ -37,7 +37,7 @@ const AdCardContainer = () => {
      
   
    
-    return <div className="custom-container">
+    return <div className="custom-card-container">
  
  {data && data.length > 0 && data.map((item, index) => 
             <AdCard item = {item} key = {index}/>

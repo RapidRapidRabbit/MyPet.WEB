@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import AdCardContainer from "../../components/AdCard/AdCardContainer";
+import AdCardContainer from "../../components/AdCardsContainer/AdCardContainer";
 import Header from "../../components/HeaderComponent/HeaderComponent";
 import "./HomePage.css";
  

@@ -1,3 +1,4 @@
+import { getCookie } from "../GetSetCookieService";
 import { myPetApi } from "../Hosts";
 
  const AddAdvertisementService = async (data) =>{
@@ -7,6 +8,9 @@ import { myPetApi } from "../Hosts";
     const requestOptions = {
             method: 'PUT',           
             body: data,
+            headers: {
+              'Authorization': "Bearer " + getCookie("jwttoken"),
+            }
         };  
           
      let response = await fetch(`${myPetApi}/Advertisement/AddAdvertisement`, requestOptions)
