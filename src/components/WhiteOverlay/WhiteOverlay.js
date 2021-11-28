@@ -1,23 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./WhiteOverlay.css";
-import { useDispatch } from 'react-redux';
-import {registerFormToggle} from '../../features/RegisterFormToggler/registerFormTogglerSlice'
-import {loginFormToggle} from '../../features/LoginFormToggler/loginFormTogglerSlice'
 
 
 
 const WhiteOverlay = (props) =>{
        
-    const dispatch = useDispatch();
-    const [show, toggleOverlayShow] = React.useState(true);
     
+    const [show, toggleOverlayShow] = React.useState(props.setShow);
     
+    useEffect(() =>{
+        toggleOverlayShow(props.setShow)
+    },[props.setShow])
 
     const handleOverlayClick = (e) =>{
         e.preventDefault();        
         toggleOverlayShow(false);
-        dispatch(registerFormToggle({changeVisible: false}))
-        dispatch(loginFormToggle({changeVisible: false}))
+        props.changeParentState();        
     }
 
 

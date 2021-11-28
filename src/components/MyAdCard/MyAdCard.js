@@ -2,17 +2,20 @@ import { myPetApi } from "../../services/Hosts";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "../AdCard/AdCard.css";
 import "./MyAdCard.css";
-import { useState } from "react";
+import React, { useState, Fragment } from "react";
+import WhiteOverlay from "../WhiteOverlay/WhiteOverlay";
+import ChangeAdFormComponent from "../ChangeAdFormComponent/ChangeAdFormComponent";
 
 
 
 export const MyAdCard = ({item}) =>{
 
+  const [isShow, ToggleOverlayShow] = useState(false);
+ 
     
 const handleChangeClick = (e) =>{    
-    
+    ToggleOverlayShow(!isShow);
 }
-
 const handleDeleteClick = (e) =>{    
     setButtons(confirmButtons);
 }
@@ -35,7 +38,7 @@ const buttons = <div className="bottom-card-block card-buttons">
 
 const [currentButtons, setButtons] = useState(buttons) 
     
-    return <div className="card custom-card">
+    return<Fragment> <div className="card custom-card">
         <img src={myPetApi+item.images[0].path} className="card-img-top custom-img" alt=":("></img>
     <div className="card-body custom-card-body">
       <h5 className="card-title custom-card-title">{item.petName}</h5>
@@ -44,4 +47,6 @@ const [currentButtons, setButtons] = useState(buttons)
     </div>
         {currentButtons}
       </div>
+      <WhiteOverlay setShow = {isShow} changeParentState = {handleChangeClick}><ChangeAdFormComponent aditem = {item}/></WhiteOverlay>
+      </Fragment>
     }
