@@ -5,12 +5,14 @@ import "./MyAdCard.css";
 import React, { useState, Fragment } from "react";
 import WhiteOverlay from "../WhiteOverlay/WhiteOverlay";
 import ChangeAdFormComponent from "../ChangeAdFormComponent/ChangeAdFormComponent";
+import DeleteAdService from "../../services/DeleteAdvertisementService/DeleteAdService";
+import { getJwtTokenData } from "../../services/GetJwtTokenData";
 
 
 
 export const MyAdCard = ({item}) =>{
 
-  const [isShow, ToggleOverlayShow] = useState(false);
+const [isShow, ToggleOverlayShow] = useState(false);
  
     
 const handleChangeClick = (e) =>{    
@@ -19,8 +21,29 @@ const handleChangeClick = (e) =>{
 const handleDeleteClick = (e) =>{    
     setButtons(confirmButtons);
 }
-const handleConfirmClick = (e) =>{    
+const handleConfirmDeleteClick = (e) =>{  
+
+  let jwtTokenData = getJwtTokenData();
     
+  if(jwtTokenData == null){   
+    return;
+  }
+
+  DeleteAdService(item.id).then(responseData => {
+
+    try{
+
+      if(responseData.status >= 400){
+        return;
+      }
+        console.log(responseData);
+        window.location = "/myads";
+
+    }
+    catch (err){
+        console.error(err);
+    }
+  })
 }
 const handleResetClick = (e) =>{    
     setButtons(buttons);
@@ -32,7 +55,7 @@ const buttons = <div className="bottom-card-block card-buttons">
 </div>
 
  const confirmButtons = <div className="bottom-card-block card-buttons">
- <button className="btn btn-outline-primary btn-sm" onClick={handleConfirmClick}>Подтвердить</button>
+ <button className="btn btn-outline-primary btn-sm" onClick={handleConfirmDeleteClick}>Подтвердить</button>
  <button className="btn btn-outline-primary btn-sm" onClick={handleResetClick}>Отмена</button>          
 </div>     
 

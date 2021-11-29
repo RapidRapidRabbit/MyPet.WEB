@@ -3,8 +3,8 @@ import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { getJwtTokenData } from "../../services/GetJwtTokenData";
-import AddAdvertisementService from "../../services/AddAdvertisementService/AddAdvertisementService";
 import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
+import UpdateAdvertisementService from "../../services/UpdateAdvertisementService/UpdateAdService";
 
 
 
@@ -37,10 +37,7 @@ const ChangeAdFormComponent = (props) => {
     if(jwtTokenData == null){
       setServerError(["Сначала войдите или зарегистрируйтесь"]);
       return;
-    }
-    
-    data["UserId"] = jwtTokenData.unique_name;
-    data["UserName"] = jwtTokenData.email;
+    }       
     
     let formData = new FormData();
 
@@ -48,27 +45,26 @@ const ChangeAdFormComponent = (props) => {
       formData.append(key, data[key]);      
     }
     formData.append("Image", data.Image[0]);
+    formData.append("AdId", props.aditem.id);
     
     
     
-    //  AddAdvertisementService(formData)
-    //  .then(responseData =>{
+     UpdateAdvertisementService(formData)
+     .then(responseData =>{
       
-    //  try{ 
-    //   if(responseData.status === 400){                
-    //     let errorsArr = GetServerErrors(responseData.errors);
-    //     setServerError(errorsArr);
-    //     return;        
-    //   }
-    //   if(responseData.status >= 200 && responseData.status < 300){
-    //     console.log(responseData);
-    //     window.location = "/";
-    //   }
-    //  }
-    //  catch{
-    //   setServerError(["Something went wrong"]);
-    //  }         
-    //  });  
+     try{ 
+      if(responseData.status >= 400){                
+        let errorsArr = GetServerErrors(responseData.errors);
+        setServerError(errorsArr);
+        return;        
+      }      
+        console.log(responseData);
+        window.location = "/myads";      
+     }
+     catch{
+      setServerError(["Something went wrong"]);
+     }         
+     });  
   }
  
  

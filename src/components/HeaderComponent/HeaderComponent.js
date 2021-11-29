@@ -77,7 +77,7 @@ const Header = () => {
     return <header>
         <nav className="navbar navbar-dark bg-dark custom-navbar">
   <div className="container-fluid header-container">
-  <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet</button>
+  <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet App</button>
     {isLogin}
   </div>  
 </nav>    
