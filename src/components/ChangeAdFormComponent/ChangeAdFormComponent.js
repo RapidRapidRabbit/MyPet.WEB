@@ -11,7 +11,7 @@ import UpdateAdvertisementService from "../../services/UpdateAdvertisementServic
 
 
 
-const ChangeAdFormComponent = (props) => {
+const ChangeAdFormComponent2 = (props) => {
 
   const [serverErrors, setServerError] = useState([]);
 
@@ -23,7 +23,8 @@ const ChangeAdFormComponent = (props) => {
     PetName: props.aditem.petName,
     LocationTown: props.aditem.locationTown,
     LocationStreet: props.aditem.locationStreet,
-    Description: props.aditem.description,
+    LocationHouse: props.aditem.locationHouse,
+    Description: props.aditem.description,    
   }});
 
   const handleFormClick = (e) =>{    
@@ -45,7 +46,7 @@ const ChangeAdFormComponent = (props) => {
       formData.append(key, data[key]);      
     }
     formData.append("Image", data.Image[0]);
-    formData.append("AdId", props.aditem.id);
+    formData.append("AdId", props.aditem.adId);
     
     
     
@@ -85,6 +86,21 @@ const addAdForm =
   ></input>
   <div className="invalid-feedback">    
     {errors.Images && errors.Images.message}
+    </div>     
+</div>
+<div className="mb-3">
+  <label htmlFor="Category" className="form-label">Категория
+  </label>
+  <select className="form-select" id="categorySelect"
+   {...register('Category', { 
+        required: 'Обязательное поле',                       
+          })} 
+  >
+    <option value="Lost">Потерян</option>
+    <option value="Found">Найден</option>
+  </select>
+  <div className="invalid-feedback">    
+    {errors.Category && errors.Category.message}
     </div>     
 </div>
   <div className="mb-3">
@@ -133,6 +149,17 @@ const addAdForm =
     </div>     
 </div>
 <div className="mb-3">
+  <label htmlFor="FormControlInput4" className="form-label">Номер дома (попробуем показать на карте)</label>
+  <input type="text" className={"form-control " + (errors.LocationHouse  ? "is-invalid" : '')} id="FormControlInput4" placeholder="1"
+  {...register('LocationHouse', {
+            required: 'Обязательное поле',           
+          })}
+  ></input>
+  <div className="invalid-feedback">    
+    {errors.LocationHouse && errors.LocationHouse.message}
+    </div>     
+</div>
+<div className="mb-3">
   <label htmlFor="FormControlTextarea1" className="form-label">Какое-нибудь описание</label>
   <textarea className={"form-control " + (errors.Description  ? "is-invalid" : '')} id="FormControlTextarea1" rows="3"
   {...register('Description', {
@@ -160,4 +187,4 @@ const addAdForm =
 }
 
 
-export default ChangeAdFormComponent;
+export default ChangeAdFormComponent2;

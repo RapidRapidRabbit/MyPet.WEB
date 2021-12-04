@@ -41,7 +41,7 @@ const AddAdvertisementFormComponent = () => {
     formData.append("Image", data.Image[0]);
     
     
-    
+    console.log(formData);
      AddAdvertisementService(formData)
      .then(responseData =>{
       
@@ -82,6 +82,22 @@ const addAdForm =
     {errors.Images && errors.Images.message}
     </div>     
 </div>
+<div className="mb-3">
+  <label htmlFor="Category" className="form-label">Категория
+  </label>
+  <select className="form-select" id="categorySelect"
+   {...register('Category', { 
+        required: 'Обязательное поле',                       
+          })} 
+  >
+    <option value="Lost">Потерян</option>
+    <option value="Found">Найден</option>
+  </select>
+  <div className="invalid-feedback">    
+    {errors.Category && errors.Category.message}
+    </div>     
+</div>
+
   <div className="mb-3">
   <label htmlFor="FormControlInput1" className="form-label">Как его зовут?</label>
   <input type="text" className={"form-control " + (errors.PetName  ? "is-invalid" : '')} id="FormControlInput1" placeholder="Мурзик"
@@ -125,6 +141,17 @@ const addAdForm =
   ></input>
   <div className="invalid-feedback">    
     {errors.LocationStreet && errors.LocationStreet.message}
+    </div>     
+</div>
+<div className="mb-3">
+  <label htmlFor="FormControlInput4" className="form-label">Номер дома (попробуем показать на карте)</label>
+  <input type="text" className={"form-control " + (errors.LocationHouse  ? "is-invalid" : '')} id="FormControlInput4" placeholder="1"
+  {...register('LocationHouse', {
+            required: 'Обязательное поле',           
+          })}
+  ></input>
+  <div className="invalid-feedback">    
+    {errors.LocationHouse && errors.LocationHouse.message}
     </div>     
 </div>
 <div className="mb-3">
