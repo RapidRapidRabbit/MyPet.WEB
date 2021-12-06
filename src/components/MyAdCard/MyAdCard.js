@@ -12,12 +12,6 @@ import { NavLink } from "react-router-dom";
 
 export const MyAdCard = ({item}) =>{
 
-const [isShow, ToggleOverlayShow] = useState(false);
- 
-    
-const handleChangeClick = (e) =>{    
-    ToggleOverlayShow(!isShow);
-}
 const handleDeleteClick = (e) =>{    
     setButtons(confirmButtons);
 }
@@ -50,7 +44,7 @@ const handleResetClick = (e) =>{
 }
 
 const buttons = <div className="bottom-card-block card-buttons">
-  {/* <button className="btn btn-outline-primary btn-sm" onClick={handleChangeClick}>Изменить <i className="bi bi-pen"></i></button> */}
+  
   <NavLink 
             className="btn btn-outline-primary btn-sm"          
             to={`/ChangeAdvertisement2/${item.id}/${item.petName}/${item.locationTown}/${item.locationStreet}/${item.locationHouse}/${item.description}`}>

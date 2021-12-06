@@ -1,0 +1,21 @@
+.search-form{
+    display: flex;   
+    justify-content: center;
+    flex-flow: row wrap;
+       
+}
+.search-form-input-block{
+    display: block;    
+    padding-right: 30px;    
+}
+.search-form-input-block .town-block{
+    position: relative;
+}
+.search-button{
+    align-self: center;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+.search-label{
+    color: antiquewhite;
+}

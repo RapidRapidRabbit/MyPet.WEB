@@ -1,0 +1,28 @@
+.search-suggest-block{
+    position: absolute;
+    display: block;    
+    width: 200px;    
+    background-color: whitesmoke;
+    z-index: 10;
+}
+.towns-list{
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.town-list-item{
+    border-bottom: 1px solid #0d6efd;
+}
+
+.town-button{
+    width: 100%;
+    border: none;
+    line-height: 1.8em;
+    text-align: start;
+}
+.town-button:hover{
+    background-color: #0d6efd;
+}
+.town-button:focus {      
+    background-color: #0d6efd;
+}

@@ -1,6 +1,7 @@
 import { myPetApi } from "../../services/Hosts";
 import "./AdCard.css";
 import switchCategory from "../../services/SwitchCategory/SwitchCategory";
+import { NavLink } from "react-router-dom";
 
 
 export const AdCard = ({item}) =>{
@@ -15,7 +16,11 @@ return <div className="card custom-card">
       <p className="card-text custom-card-text">{item.description}</p>      
     </div>
     <div className="bottom-card-block">
-      <button className="btn btn-primary btn-sm">Подробности</button>
+  <NavLink 
+            className="btn btn-primary btn-sm"          
+            to={`/AdvertisementDetails/${item.id}`}>
+            Подробности
+  </NavLink>
       <span className="card-text date-text"><small className="text-muted">{date.toLocaleDateString("ru")}</small></span>
       </div>     
   </div>

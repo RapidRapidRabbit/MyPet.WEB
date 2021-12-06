@@ -6,6 +6,7 @@ import SignInForm from "./pages/SignInPage/SignInForm";
 import AddAdvertisementPage from "./pages/AddAdvertisementPage/AddAdvertisementPage";
 import MyAdsPage from "./pages/MyAdsPage/MyAdsPage";
 import ChangeAdvertisementPage from "./pages/ChangeAdvertisementPage/ChangeAdvertisementPage";
+import AdvertisementDetailsPage from "./pages/AdvertisementDetailsPage/AdvertisementDetailsPage";
 
 
 
@@ -18,6 +19,7 @@ const Router = () => {
         <Route exact path = "/AddAdvertisement" component = {AddAdvertisementPage} />   
         <Route exact path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" component = {ChangeAdvertisementPage} />
         <Route exact path = "/MyAds" component = {MyAdsPage} />
+        <Route exact path = "/AdvertisementDetails/:adId" component = {AdvertisementDetailsPage} />
         <Route path="*" component={HomePage} />               
     </Switch>
     </BrowserRouter>

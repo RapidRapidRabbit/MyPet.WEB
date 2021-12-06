@@ -1,4 +1,4 @@
-export function setCookie(name, value, options = {}) {    
+export const setCookie = (name, value, options = {}) => {    
     options = {
       path: '/',
       // при необходимости добавьте другие значения по умолчанию
@@ -22,7 +22,7 @@ export function setCookie(name, value, options = {}) {
     document.cookie = updatedCookie;
   }
 
-export function getCookie(name){
+export const getCookie = (name) => {
     let nameEQ = name + "=";
     let ca = document.cookie.split(';');
 
