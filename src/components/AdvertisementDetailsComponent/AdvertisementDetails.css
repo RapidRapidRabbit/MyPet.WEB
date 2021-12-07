@@ -1,3 +1,11 @@
-div{
-    /* color: antiquewhite; */
+.details-block{    
+    color: whitesmoke;
+    border: 1px dotted wheat;
+    margin-right: 5px;
+    line-height: 1.8em;      
+}
+.not-found-string{
+    padding: 10px;
+    color: whitesmoke;
+    font-style: italic;
 }

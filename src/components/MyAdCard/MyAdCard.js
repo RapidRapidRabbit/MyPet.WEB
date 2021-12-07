@@ -1,6 +1,5 @@
 import { myPetApi } from "../../services/Hosts";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import "../AdCard/AdCard.css";
 import "./MyAdCard.css";
 import React, { useState, Fragment } from "react";
 import DeleteAdService from "../../services/DeleteAdvertisementService/DeleteAdService";
@@ -47,7 +46,7 @@ const buttons = <div className="bottom-card-block card-buttons">
   
   <NavLink 
             className="btn btn-outline-primary btn-sm"          
-            to={`/ChangeAdvertisement2/${item.id}/${item.petName}/${item.locationTown}/${item.locationStreet}/${item.locationHouse}/${item.description}`}>
+            to={`/ChangeAdvertisement/${item.id}/${item.petName}/${item.locationTown}/${item.locationStreet}/${item.locationHouse}/${item.description}`}>
             Изменить <i className="bi bi-pen"></i>
   </NavLink>
   <button className="btn btn-outline-danger btn-sm" onClick={handleDeleteClick}>Удалить <i className="bi bi-trash"></i></button>          
@@ -60,7 +59,7 @@ const buttons = <div className="bottom-card-block card-buttons">
 
 const [currentButtons, setButtons] = useState(buttons) 
     
-    return<Fragment> <div className="card custom-card">
+    return<Fragment> <div className="card custom-card users-card">
         <img src={myPetApi+item.images[0].path} className="card-img-top custom-img" alt=":("></img>
     <div className="card-body custom-card-body">
       <h5 className="card-title custom-card-title">{switchCategory(item.category) + ' ' + item.petName}</h5>

@@ -7,9 +7,10 @@ const SearchSuggestComponent = (props) => {
     const [isVisible, setIsSuggestVisible] = useState(false);
     const [townsList, setTownsList] = useState([]);
 
-    useEffect(()=>{
+    useEffect(()=>{       
 
         if(props.town.length >= 3){
+            
             
             setTownsList([]);            
 
@@ -31,14 +32,27 @@ const SearchSuggestComponent = (props) => {
         }        
     },[props.town])
 
+    
 
+    useEffect(()=>{
+
+        if(isVisible){
+            window.addEventListener('click', handleWindowClick);            
+        }        
+        
+        return () => window.removeEventListener('click', handleWindowClick);
+    },[isVisible])
+
+    const handleWindowClick = () =>{
+        setIsSuggestVisible(false);                
+    }
     const handleTownButtonClick = (e) =>{        
         let elem = document.getElementById("searchTownLocation");
 
         let result = e.target.value.split(" ");
         elem.value = result[0];
 
-        setIsSuggestVisible(false);        
+        setIsSuggestVisible(false);                
     }
 
 

@@ -1,0 +1,28 @@
+.details-img{
+    
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10px;
+    display: block;
+    width: 70%;
+    max-height: 300px;
+}
+.line-name{    
+    font-weight: bold;
+    text-align: left;
+}
+.line-value{         
+    text-align: right;
+}
+.line-block{        
+    display: flex;
+    justify-content: space-between;        
+    width: 100%;
+    /* border: 1px solid wheat; */
+}
+.description{
+    padding-right: 5px;
+}
+.description-value{
+    text-align: justify;
+}

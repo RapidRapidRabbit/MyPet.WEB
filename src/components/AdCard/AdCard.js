@@ -13,7 +13,7 @@ return <div className="card custom-card">
     <div className="card-body custom-card-body">
       <h5 className="card-title custom-card-title">{switchCategory(item.category) + ' ' + item.petName}</h5>
       <h6 className="card-subtitle mb-2 text-muted">{item.locationTown + ', ' + item.locationStreet + ' ' + item.locationHouse}</h6>
-      <p className="card-text custom-card-text">{item.description}</p>      
+      {/* <p className="card-text custom-card-text">{item.description}</p>       */}
     </div>
     <div className="bottom-card-block">
   <NavLink 
