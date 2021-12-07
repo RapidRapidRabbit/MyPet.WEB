@@ -18,7 +18,9 @@ const AdCardContainer = () => {
     searchFormData.current = childData;
     page.current = 1;
     
-    GetPagedAds(page.current, searchFormData.current).then(response => setAdCardsData(response) );
+    GetPagedAds(page.current, searchFormData.current).then(response =>{   
+        setAdCardsData(response);         
+    });
   }
   
 
@@ -49,13 +51,18 @@ const AdCardContainer = () => {
   },[])
   
    
+  
     return <Fragment>
 
     <SearchFormComponent parentCallback = {getDataFormSearchForm}/>
 
-     <div className="custom-card-container"> 
- {adCardsdata && adCardsdata.length > 0 && adCardsdata.map((item, index) => 
-            <AdCard item = {item} key = {index}/>)}  
+     <div className="custom-card-container">
+
+     {adCardsdata && adCardsdata.length > 0
+      ? adCardsdata.map((item, index) => <AdCard item = {item} key = {index}/>)
+      : <p className="not-found-string">К сожалению, ничего не нашлось.</p> 
+     }    
+ 
   </div>
   </Fragment>
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import HomePage from "./pages/HomePage/HomePage";
 import SignUpForm from "./pages/SignUpForm/SignUpForm";
 import SignInForm from "./pages/SignInPage/SignInForm";
@@ -12,16 +12,16 @@ import AdvertisementDetailsPage from "./pages/AdvertisementDetailsPage/Advertise
 
 const Router = () => {
     return <BrowserRouter>
-    <Switch>
-        <Route exact path = "/" component = {HomePage} />
-        <Route exact path = "/SignUp" component = {SignUpForm} />
-        <Route exact path = "/SignIn" component = {SignInForm} />
-        <Route exact path = "/AddAdvertisement" component = {AddAdvertisementPage} />   
-        <Route exact path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" component = {ChangeAdvertisementPage} />
-        <Route exact path = "/MyAds" component = {MyAdsPage} />
-        <Route exact path = "/AdvertisementDetails/:adId" component = {AdvertisementDetailsPage} />
-        <Route path="*" component={HomePage} />               
-    </Switch>
+    <Routes>
+        <Route path = "/" element = {<HomePage/>} />
+        <Route path = "/SignUp" element = {<SignUpForm/>} />
+        <Route path = "/SignIn" element = {<SignInForm/>} />
+        <Route path = "/AddAdvertisement" element = {<AddAdvertisementPage/>} />   
+        <Route path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" element = {<ChangeAdvertisementPage/>} />
+        <Route path = "/MyAds" element = {<MyAdsPage/>} />
+        <Route path = "/AdvertisementDetails/:adId" element = {<AdvertisementDetailsPage/>} />
+        <Route path="*" element={<HomePage/>} />               
+    </Routes>
     </BrowserRouter>
 }
 
