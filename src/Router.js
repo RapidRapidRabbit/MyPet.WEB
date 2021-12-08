@@ -7,6 +7,7 @@ import AddAdvertisementPage from "./pages/AddAdvertisementPage/AddAdvertisementP
 import MyAdsPage from "./pages/MyAdsPage/MyAdsPage";
 import ChangeAdvertisementPage from "./pages/ChangeAdvertisementPage/ChangeAdvertisementPage";
 import AdvertisementDetailsPage from "./pages/AdvertisementDetailsPage/AdvertisementDetailsPage";
+import EmailConfirmedPage from "./pages/EmailConfirmedPage/EmailConfirmedPage";
 
 
 
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" element = {<ChangeAdvertisementPage/>} />
         <Route path = "/MyAds" element = {<MyAdsPage/>} />
         <Route path = "/AdvertisementDetails/:adId" element = {<AdvertisementDetailsPage/>} />
+        <Route path = "/emailConfirmation/" element = {<EmailConfirmedPage/>} />
         <Route path="*" element={<HomePage/>} />               
     </Routes>
     </BrowserRouter>

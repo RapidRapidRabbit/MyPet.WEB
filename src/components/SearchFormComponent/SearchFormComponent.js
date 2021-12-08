@@ -8,10 +8,12 @@ const [townValue, setTownValue] = useState("");
 
     
 const handleSearchClick = () => {
+    let region  = document.getElementById("searchRegionSelect").value;
     let town = document.getElementById("searchTownLocation").value;
     let category = document.getElementById("searchCategorySelect").value;
 
     props.parentCallback({
+        region: region,
         category: category,
         locationTown: town,
     })
@@ -23,11 +25,24 @@ const handleTownChange = (e) =>{
     
     
     return <div className="search-form" >
+    <div className="search-form-input region-select mb-3">
+    <label htmlFor="searchRegionSelect" className="form-label search-label">Область
+    </label>
+    <select className="search-form-input-block form-select" id="searchRegionSelect">
+      <option value="all">Вся Беларусь</option>
+      <option value="Минская">Минская</option>
+      <option value="Брестская">Брестская</option>
+      <option value="Гомельская">Гомельская</option>
+      <option value="Гродненская">Гродненская</option>
+      <option value="Могилевская">Могилевская</option>
+      <option value="Витебская">Витебская</option>
+    </select>  
+  </div>
     <div className="search-form-input-block town-block mb-3">
       <label htmlFor="searchTownLocation" className="form-label search-label">Город</label>
       <input type="text" className="form-control"  id="searchTownLocation" placeholder="Минск" onChange={handleTownChange} autoComplete="off" />
       <SearchSuggestComponent town={townValue}/>    
-    </div>  
+    </div>      
     <div className="search-form-input mb-3">
     <label htmlFor="searchCategorySelect" className="form-label search-label">Категория
     </label>
