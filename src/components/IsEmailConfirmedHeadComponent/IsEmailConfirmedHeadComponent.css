@@ -1,0 +1,6 @@
+.email-span.confirmed{
+    color: seagreen;
+}
+.email-span.notconfirmed{
+    color: firebrick;
+}

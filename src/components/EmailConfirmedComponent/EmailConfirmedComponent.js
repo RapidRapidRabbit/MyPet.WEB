@@ -8,11 +8,13 @@ const EmailConfirmedComponent = (props) =>{
     
 
 
-    useEffect(()=>{
-        console.log(props.params.get("emailtoken"));
-        EmailConfirmService(props.params.get("userid"), props.params.get("emailtoken")).then(response => {
+    useEffect(()=>{              
+
+        let normalizedToken = props.params.get("emailtoken").replace(/ /g,"+");        
+
+        EmailConfirmService(props.params.get("userid"), normalizedToken).then(response => {
             
-            if(response.status >= 400 || response.confirmationResult === false ){                
+            if(response === null || response.status >= 400 || response.confirmationResult === false ){                
                 setContentToShow(errorContent);
             }else if (response.confirmationResult === true){                
                 setContentToShow(okContent);

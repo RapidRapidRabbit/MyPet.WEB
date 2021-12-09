@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import "./HeaderComponent.css";
 import { setCookie } from "../../services/GetSetCookieService";
 import { CheckToken } from "../../services/ValidateTokenService";
+import IsEmailConfirmedHeadComponent from "../IsEmailConfirmedHeadComponent/IsEmailConfirmedHeadComponent";
 
 
 
@@ -13,37 +15,34 @@ import { CheckToken } from "../../services/ValidateTokenService";
 
 const Header = () => {
     
-    const[isLogin, setLogin] = useState("Loading...")    
+    const[isLogin, setLogin] = useState(false)
+    const[isEmailConfirmed, setisEmailConfirmed] = useState(false);    
 
     useEffect(()=>{
      CheckToken().then(data => {
       try{
-      if(data.tokenValidation==="true"){               
-        setLogin(LoginTrue)
+      if(JSON.parse(data.tokenValidation) === true){               
+        setLogin(true);
+        setisEmailConfirmed(JSON.parse(data.isEmailConfirmed));        
       }
       else{
-        setLogin(LoginFalse)        
+        setLogin(false)        
       }
      }
      catch(err){
       console.log(err);
-      setLogin(LoginFalse);
+      setLogin(false);
      }
     })                                                                
-      },[])     
+      },[])
+      
+    
     
     const handleMainPageLinkClick = (e) =>{
         e.preventDefault();
         window.location = '/'
-    }  
-    const handleSignInClick = (e) =>{
-        e.preventDefault();
-        window.location = '/signin'
-    }
-    const handleSignUpClick = (e) =>{
-        e.preventDefault();
-        window.location = '/signup'            
-    }
+    } 
+    
     const handleLogOutClick = (e) =>{
 
         e.preventDefault();
@@ -53,32 +52,28 @@ const Header = () => {
           })
         window.location = "/"  
     }
-    const handleAddAdClick = (e) => {
-      window.location = '/addadvertisement'
-    }
-    const handleMyAdsClick = (e) => {
-      window.location = '/myads'
-    }
 
-    const LoginFalse = (<div className="">
-    <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignInClick}>Войти</button>
-    <button type="button" className="btn btn-outline-primary login-button" onClick={handleSignUpClick}>Зарегистрироваться</button>      
-    </div>);
-    const LoginTrue = (<div className="">
-    <button type="button" className="btn btn-outline-primary login-button" onClick={handleAddAdClick}>Добавить объявление</button>
-    <button type="button" className="btn btn-outline-primary login-button" onClick={handleMyAdsClick}>Мои объявления</button>
-    <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          
-    </div>);
-
-    
-
-    
 
     return <header>
         <nav className="navbar navbar-dark bg-dark custom-navbar">
-  <div className="container-fluid header-container">
+  <div className="container-fluid header-container">  
   <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet App</button>
-    {isLogin}
+  <div className="is-sign-in-block">  
+    {isLogin === true &&
+      <Fragment>
+    <div className="email-confirm-block"><IsEmailConfirmedHeadComponent isConfirmed = {isEmailConfirmed}/></div>
+    <NavLink to="/addadvertisement" className="btn btn-outline-primary login-button">Добавить объявление</NavLink>
+    <NavLink to="/myads" className="btn btn-outline-primary login-button">Мои объявления</NavLink>     
+    <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          
+    </Fragment>
+    }
+
+    {isLogin === false && <Fragment>
+      <NavLink to="/signin" className="btn btn-outline-primary login-button">Войти</NavLink>
+      <NavLink to="/signup" className="btn btn-outline-primary login-button">Зарегистрироваться</NavLink>     
+     </Fragment>
+    }
+  </div>     
   </div>  
 </nav>    
     </header>    
