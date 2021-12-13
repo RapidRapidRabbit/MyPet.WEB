@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { NavLink } from "react-router-dom";
+//import { useNavigate } from "react-router";
 import "./HeaderComponent.css";
 import { setCookie } from "../../services/GetSetCookieService";
 import { CheckToken } from "../../services/ValidateTokenService";
@@ -14,7 +15,9 @@ import IsEmailConfirmedHeadComponent from "../IsEmailConfirmedHeadComponent/IsEm
 
 
 const Header = () => {
+
     
+  //  let navigate = useNavigate();
     const[isLogin, setLogin] = useState(false)
     const[isEmailConfirmed, setisEmailConfirmed] = useState(false);    
 
@@ -40,7 +43,8 @@ const Header = () => {
     
     const handleMainPageLinkClick = (e) =>{
         e.preventDefault();
-        window.location = '/'
+        window.location = "/"
+       // navigate("/mainpage", { replace: true });
     } 
     
     const handleLogOutClick = (e) =>{
@@ -50,7 +54,8 @@ const Header = () => {
         setCookie("jwttoken", "", {
             'max-age': -1
           })
-        window.location = "/"  
+        window.location = "/"
+        // navigate("/mainpage", { replace: true });     
     }
 
 

@@ -30,8 +30,8 @@ const AddAdvertisementFormComponent = () => {
       return;
     }
     
-    data["UserId"] = jwtTokenData.unique_name;
-    data["UserName"] = jwtTokenData.email;
+   // data["UserId"] = jwtTokenData.unique_name;
+   // data["UserName"] = jwtTokenData.email;
     
     let formData = new FormData();
 
@@ -113,6 +113,24 @@ const addAdForm =
     {errors.PetName && errors.PetName.message}
     </div>     
   </div>
+  <div className="mb-3">
+  <label htmlFor="searchRegionSelect" className="form-label">Область</label>
+  <select className="search-form-input-block form-select" id="searchRegionSelect"
+  {...register('LocationRegion', {
+            required: 'Обязательное поле',            
+          })}
+  >      
+      <option value="Minsk">Минская</option>
+      <option value="Brest">Брестская</option>
+      <option value="Gomel">Гомельская</option>
+      <option value="Grodno">Гродненская</option>
+      <option value="Mogilev">Могилевская</option>
+      <option value="Vitebsk">Витебская</option>
+    </select>  
+  <div className="invalid-feedback">    
+    {errors.LocationTown && errors.LocationTown.message}
+    </div>     
+</div>
 <div className="mb-3">
   <label htmlFor="FormControlInput2" className="form-label">Ваш город</label>
   <input type="text" className={"form-control " + (errors.LocationTown  ? "is-invalid" : '')} id="FormControlInput2" placeholder="Минск"

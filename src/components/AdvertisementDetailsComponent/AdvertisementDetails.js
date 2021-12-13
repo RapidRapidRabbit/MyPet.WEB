@@ -1,8 +1,6 @@
 import "./AdvertisementDetails.css";
 import { useEffect, useState } from "react";
 import GetAdById from "../../services/GetAdById/getAdById";
-import switchCategory from "../../services/SwitchCategory/SwitchCategory";
-import { myPetApi } from "../../services/Hosts";
 import AdDetailsViewComponent from "../AdDetailsViewComponent/AdDetailsViewComponent";
 
 const AdvertisementDetailsComponent = (props) =>{
@@ -38,7 +36,7 @@ const AdvertisementDetailsComponent = (props) =>{
         <AdDetailsViewComponent item = {adData}/>        
         </div>
         <div className="col-sm details-block">
-          Когда-нибудь здесь будет форма для отправки имейла
+          Когда-нибудь здесь будет чат или отправка имейла
         </div>      
       </div>
     </div>   

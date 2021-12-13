@@ -30,12 +30,12 @@ const handleTownChange = (e) =>{
     </label>
     <select className="search-form-input-block form-select" id="searchRegionSelect">
       <option value="all">Вся Беларусь</option>
-      <option value="Минская">Минская</option>
-      <option value="Брестская">Брестская</option>
-      <option value="Гомельская">Гомельская</option>
-      <option value="Гродненская">Гродненская</option>
-      <option value="Могилевская">Могилевская</option>
-      <option value="Витебская">Витебская</option>
+      <option value="Minsk">Минская</option>
+      <option value="Brest">Брестская</option>
+      <option value="Gomel">Гомельская</option>
+      <option value="Grodno">Гродненская</option>
+      <option value="Mogilev">Могилевская</option>
+      <option value="Vitebsk">Витебская</option>
     </select>  
   </div>
     <div className="search-form-input-block town-block mb-3">

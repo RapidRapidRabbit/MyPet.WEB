@@ -73,6 +73,21 @@ const SignUpForm =
     <div id="emailHelp" className="form-text">Любой, просто валидный</div>     
   </div>
   <div className="mb-3">
+    <label htmlFor="InputNickName" className="form-label">Имя на сайте</label>
+    <input type="text" className={"form-control " + (errors.UserName  ? "is-invalid" : '')}  id="InputNickname" placeholder="nickname" 
+      {...register('UserName', {
+            required: 'Обязательное поле',
+            maxLength: {
+              value: 10,
+              message: 'Максимальная длина - 10 символов'
+            },
+          })}
+    />
+    <div className="invalid-feedback">    
+    {errors.UserName && errors.UserName.message}
+    </div>       
+  </div>
+  <div className="mb-3">
     <label htmlFor="InputPassword1" className="form-label">Пароль</label>
     <input type="password" className={"form-control " + (errors.password  ? "is-invalid" : '')} id="InputPassword1" placeholder="123" 
       {...register('password', {

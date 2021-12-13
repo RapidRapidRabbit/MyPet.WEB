@@ -42,7 +42,7 @@ const AdCardContainer = () => {
       return;
     }
 }
-  const [isFetching, setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
+  const [setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
   const [adCardsdata, setAdCardsData] = useState([])
 
 

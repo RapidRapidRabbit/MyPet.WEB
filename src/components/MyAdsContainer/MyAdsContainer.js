@@ -27,7 +27,7 @@ const MyAdsContainer = () => {
         return;
       }
   }
-    const [isFetching, setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
+    const [setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
     const [data, setData] = useState([])
   
   

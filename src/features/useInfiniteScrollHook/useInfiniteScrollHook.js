@@ -12,8 +12,7 @@ const useInfiniteScrollHook = (callback) => {
     if (!isFetching){
         return;
     } 
-    callback(() => {
-      console.log('called back');
+    callback(() => {      
     });
   }, [isFetching]);
 
@@ -26,7 +25,7 @@ const useInfiniteScrollHook = (callback) => {
     setIsFetching(true);
   }
 
-  return [isFetching, setIsFetching];
+  return [setIsFetching];
 };
 
 export default useInfiniteScrollHook;
