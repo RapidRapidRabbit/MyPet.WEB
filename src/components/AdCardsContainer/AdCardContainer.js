@@ -14,55 +14,50 @@ const AdCardContainer = () => {
   const searchFormData = useRef({});
   
 
-  const getDataFormSearchForm = (childData) => {        
-    searchFormData.current = childData;
+  const getDataFromSearchForm = (dataFromChildComponent) => {        
+    searchFormData.current = dataFromChildComponent;
     page.current = 1;
     
     GetPagedAds(page.current, searchFormData.current).then(response =>{   
         setAdCardsData(response);         
     });
-  }
-  
-
-  
+  }  
 
   const fetchMoreAds = () => {
+
     try{
 
     page.current++;
 
-    GetPagedAds(page.current, searchFormData.current).then(response => 
+    GetPagedAds(page.current, searchFormData.current).then(response =>       
       setAdCardsData(prevState => response.length > 0 ? prevState.concat(response) : prevState))
 
     setIsFetching(false);    
-    
-    }
+    }    
     catch(err){
-      console.error(err);
-      return;
+      console.error(err);      
     }
 }
   const [setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
-  const [adCardsdata, setAdCardsData] = useState([])
+  const [adCardsdata, setAdCardsData] = useState([]) 
 
 
   useEffect(()=>{    
-    GetPagedAds(page.current, searchFormData.current).then(response => setAdCardsData(response) );
+    GetPagedAds(page.current, searchFormData.current).then(response => setAdCardsData(response) ); 
   },[])
   
    
   
     return <Fragment>
 
-    <SearchFormComponent parentCallback = {getDataFormSearchForm}/>
+    <SearchFormComponent parentCallback = {getDataFromSearchForm}/>
 
      <div className="custom-card-container">
 
-     {adCardsdata && adCardsdata.length > 0
-      ? adCardsdata.map((item, index) => <AdCard item = {item} key = {index}/>)
+     {adCardsdata && adCardsdata.length > 0 
+      ? adCardsdata.map((item, index) => <AdCard item = {item} key = {index}/>) 
       : <p className="not-found-string">К сожалению, ничего не нашлось.</p> 
-     }    
- 
+     } 
   </div>
   </Fragment>
 }

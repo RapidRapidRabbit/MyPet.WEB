@@ -3,11 +3,9 @@ import EmailConfirmService from "../../services/EmailConfirmService/EmailConfirm
 
 const EmailConfirmedComponent = (props) =>{
 
-    const [contentToShow, setContentToShow] = useState(<div>Something happens...</div>)
+    const [contentToShow, setContentToShow] = useState(<div>Something happens...</div>)   
 
-    
-
-
+/* eslint-disable */
     useEffect(()=>{              
 
         let normalizedToken = props.params.get("emailtoken").replace(/ /g,"+");        
@@ -22,6 +20,7 @@ const EmailConfirmedComponent = (props) =>{
 
         })
     },[])
+/* eslint-enable */
 
     const errorContent = (<div>Что-то пошло не так</div>);
     const okContent = (<div>Спасибо за подтверждение</div>);

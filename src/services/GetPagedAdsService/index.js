@@ -20,7 +20,7 @@ export const GetPagedAds = async (pageNumber, searchFormData) =>{
                 return result;
         }
         catch(error){
-                console.log(error)
+                console.error(error)
                 return null;
         }
         

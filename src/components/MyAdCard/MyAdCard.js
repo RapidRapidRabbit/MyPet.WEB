@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 
 
 
+
 export const MyAdCard = ({item}) =>{
 
 const handleDeleteClick = (e) =>{    
@@ -29,7 +30,7 @@ const handleConfirmDeleteClick = (e) =>{
       if(responseData.status >= 400){
         return;
       }
-        console.log(responseData);
+        
         window.location = "/myads";
 
     }

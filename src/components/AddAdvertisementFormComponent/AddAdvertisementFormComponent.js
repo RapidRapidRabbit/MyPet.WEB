@@ -28,10 +28,7 @@ const AddAdvertisementFormComponent = () => {
     if(jwtTokenData == null){
       setServerError(["Сначала войдите или зарегистрируйтесь"]);
       return;
-    }
-    
-   // data["UserId"] = jwtTokenData.unique_name;
-   // data["UserName"] = jwtTokenData.email;
+    } 
     
     let formData = new FormData();
 

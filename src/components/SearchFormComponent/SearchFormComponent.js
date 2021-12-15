@@ -29,7 +29,7 @@ const handleTownChange = (e) =>{
     <label htmlFor="searchRegionSelect" className="form-label search-label">Область
     </label>
     <select className="search-form-input-block form-select" id="searchRegionSelect">
-      <option value="all">Вся Беларусь</option>
+      <option value="" >Вся Беларусь</option>
       <option value="Minsk">Минская</option>
       <option value="Brest">Брестская</option>
       <option value="Gomel">Гомельская</option>
@@ -47,7 +47,7 @@ const handleTownChange = (e) =>{
     <label htmlFor="searchCategorySelect" className="form-label search-label">Категория
     </label>
     <select className="search-form-input-block form-select" id="searchCategorySelect">
-      <option value="all">Все</option>
+      <option value="">Все</option>
       <option value="Lost">Потерян</option>
       <option value="Found">Найден</option>
     </select>  
