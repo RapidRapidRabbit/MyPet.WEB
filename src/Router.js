@@ -8,6 +8,7 @@ import MyAdsPage from "./pages/MyAdsPage/MyAdsPage";
 import ChangeAdvertisementPage from "./pages/ChangeAdvertisementPage/ChangeAdvertisementPage";
 import AdvertisementDetailsPage from "./pages/AdvertisementDetailsPage/AdvertisementDetailsPage";
 import EmailConfirmedPage from "./pages/EmailConfirmedPage/EmailConfirmedPage";
+import Chat from "./components/Chat/Chat";
 
 
 
@@ -23,7 +24,9 @@ const Router = () => {
         <Route path = "/MyAds" element = {<MyAdsPage/>} />
         <Route path = "/AdvertisementDetails/:adId" element = {<AdvertisementDetailsPage/>} />
         <Route path = "/emailConfirmation/" element = {<EmailConfirmedPage/>} />
-        <Route path="*" element={<HomePage/>} />               
+        <Route path="*" element={<HomePage/>} />
+       
+        <Route path="/chat" element={<Chat/>} />               
     </Routes>
     </BrowserRouter>
 }

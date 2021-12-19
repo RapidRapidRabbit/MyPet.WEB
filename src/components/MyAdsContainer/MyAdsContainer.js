@@ -32,7 +32,9 @@ const MyAdsContainer = () => {
   
   
     useEffect(()=>{    
-        GetUsersPagedAds(page.current).then(response => setData(response) )
+        GetUsersPagedAds(page.current).then(response =>{
+          console.log(response);
+          setData(response)} )
     },[])      
 
 

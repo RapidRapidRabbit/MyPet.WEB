@@ -16,12 +16,13 @@ export const GetPagedAds = async (pageNumber, searchFormData) =>{
          
         try{  
                 const response = await fetch(url);
-                let result = await response.json();        
-                return result;
+
+               // return response;
+               let result = await response.json();        
+               return result;
         }
         catch(error){
-                console.error(error)
-                return null;
+                console.error(error)                
         }
         
            

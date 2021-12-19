@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 const useInfiniteScrollHook = (callback) => {
   const [isFetching, setIsFetching] = useState(false);
 
+  /* eslint-disable */
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -15,6 +16,8 @@ const useInfiniteScrollHook = (callback) => {
     callback(() => {      
     });
   }, [isFetching]);
+
+  /* eslint-enable */
 
   const handleScroll = () => {
 

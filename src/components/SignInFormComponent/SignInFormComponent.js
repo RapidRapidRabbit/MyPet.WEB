@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { setCookie } from "../../services/GetSetCookieService";
 import  SignInService  from "../../services/SignInService/SignInService";
-import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
+//import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 
 
 
@@ -25,10 +25,9 @@ const SignInFormComponent = () => {
      SignInService(formData).then(data => {      
 
       try{
-
-      if(data.status === 400){        
-        let errorsArr = GetServerErrors(data.errors);
-        setServerError(errorsArr);
+                 
+      if(data.statusCode === 400){         
+        setServerError(data.errors);
         return;
       }                 
       setCookie("jwttoken", data.jwttoken);

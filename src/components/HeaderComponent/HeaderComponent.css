@@ -1,9 +1,12 @@
 .custom-navbar{
-    padding: 3px;
+    padding: 0;
 }
-.login-button{
+.login-button{ 
+    display: flex;      
+    align-items:center;
+    border: none;       
     height: 100%;
-    border: none;
+    margin: 0;    
     border-radius: 0px;    
 }
 .custom-search-input{
@@ -11,8 +14,17 @@
     margin-left: 50px;
     min-width: 200px;    
 }
-.header-container{
+.left-header-block{
     padding: 0px;
+    display: flex;
+    align-self: flex-start;    
+}
+.is-sign-in-block{    
+    padding: 0px;
+    height: 50px; 
+    display: flex;
+    align-items: center;
+       
 }
 .search-button{    
     border: none;
@@ -20,15 +32,36 @@
 }
 .main-page-link{
     font-weight: bold;
+    color: whitesmoke;
     font-size: 20px;
-    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
     border: none;
     border-radius: 0px;
     min-width: 100px;    
 }
 .email-confirm-block{
-    display: inline-block;
+    display: flex;
+    align-items: center;
     padding-left: 10px;
     padding-right: 10px;
     height: 100%;        
 }
+
+.logo-img{
+    display: block;
+    align-self: flex-start;
+    content: url(https://st3.depositphotos.com/8207706/17142/i/600/depositphotos_171420710-stock-photo-abstract-web-icon.jpg);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+}
+
+
+/*
+https://www.pngitem.com/pimgs/m/60-607763_pawprint-in-a-circle-of-pet-hotel-sign.png
+https://st3.depositphotos.com/8207706/17142/i/600/depositphotos_171420710-stock-photo-abstract-web-icon.jpg 
+https://w1.pngwing.com/pngs/621/83/png-transparent-cat-silhouette-logo-calico-cat-color-three-colours-trilogy-drawing-painting-orange.png
+https://wallpapers.net/web/wallpapers/cat-art-hd-wallpaper/1024x768.jpg
+*/

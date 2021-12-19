@@ -58,8 +58,11 @@ const Header = () => {
                  
     return <header> 
         <nav className="navbar navbar-dark bg-dark custom-navbar">
-  <div className="container-fluid header-container">  
+  <div className="container-fluid">
+  <div className="left-header-block">
+    <img className="logo-img" alt=":("></img>  
   <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet App</button>
+  </div>  
   <div className="is-sign-in-block">  
     {isLogin === true && 
       <Fragment>

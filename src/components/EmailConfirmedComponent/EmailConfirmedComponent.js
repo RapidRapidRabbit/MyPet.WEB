@@ -12,7 +12,7 @@ const EmailConfirmedComponent = (props) =>{
 
         EmailConfirmService(props.params.get("userid"), normalizedToken).then(response => {
             
-            if(response === null || response.status >= 400 || response.confirmationResult === false ){                
+            if(response === null || response.statusCode >= 400 || response.confirmationResult === false ){                
                 setContentToShow(errorContent);
             }else if (response.confirmationResult === true){                
                 setContentToShow(okContent);

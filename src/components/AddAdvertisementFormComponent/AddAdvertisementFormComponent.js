@@ -38,11 +38,12 @@ const AddAdvertisementFormComponent = () => {
     formData.append("Image", data.Image[0]);
     
     
-    console.log(formData);
+    
      AddAdvertisementService(formData)
      .then(responseData =>{
       
-     try{ 
+     try{
+      
       if(responseData.status === 400){                
         let errorsArr = GetServerErrors(responseData.errors);
         setServerError(errorsArr);
@@ -125,7 +126,7 @@ const addAdForm =
       <option value="Vitebsk">Витебская</option>
     </select>  
   <div className="invalid-feedback">    
-    {errors.LocationTown && errors.LocationTown.message}
+    {errors.LocationRegion && errors.LocationRegion.message}
     </div>     
 </div>
 <div className="mb-3">

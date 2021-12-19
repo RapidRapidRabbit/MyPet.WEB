@@ -15,7 +15,7 @@ const WhiteOverlay = (props) =>{
     const handleOverlayClick = (e) =>{
         e.preventDefault();        
         toggleOverlayShow(false);
-        props.changeParentState();        
+       // props.changeParentState();        
     }
 
 
@@ -23,7 +23,7 @@ const WhiteOverlay = (props) =>{
     {props.children}
     </div>
 
-    return show===true ? overlay : null;
+    return show===true ? overlay : null;  
     
 }
 export default WhiteOverlay;

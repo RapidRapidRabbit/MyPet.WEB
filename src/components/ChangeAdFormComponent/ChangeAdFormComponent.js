@@ -54,13 +54,17 @@ const ChangeAdFormComponent2 = (props) => {
      .then(responseData =>{
       
      try{ 
-      if(responseData.status >= 400){                
+       console.log(responseData);
+      if(responseData.statusCode >= 400){                
         let errorsArr = GetServerErrors(responseData.errors);
         setServerError(errorsArr);
+        setServerError([responseData.message]);
         return;        
-      }      
-        console.log(responseData);
-        window.location = "/myads";      
+      }else{
+          alert();
+          window.location = "/myads";
+      }     
+              
      }
      catch{
       setServerError(["Something went wrong"]);
@@ -118,6 +122,24 @@ const addAdForm =
     {errors.PetName && errors.PetName.message}
     </div>     
   </div>
+  <div className="mb-3">
+  <label htmlFor="searchRegionSelect" className="form-label">Область</label>
+  <select className="search-form-input-block form-select" id="searchRegionSelect"
+  {...register('LocationRegion', {
+            required: 'Обязательное поле',            
+          })}
+  >      
+      <option value="Minsk">Минская</option>
+      <option value="Brest">Брестская</option>
+      <option value="Gomel">Гомельская</option>
+      <option value="Grodno">Гродненская</option>
+      <option value="Mogilev">Могилевская</option>
+      <option value="Vitebsk">Витебская</option>
+    </select>  
+  <div className="invalid-feedback">    
+    {errors.LocationRegion && errors.LocationRegion.message}
+    </div>     
+</div>
 <div className="mb-3">
   <label htmlFor="FormControlInput2" className="form-label">Ваш город</label>
   <input type="text" className={"form-control " + (errors.LocationTown  ? "is-invalid" : '')} id="FormControlInput2" placeholder="Минск"
