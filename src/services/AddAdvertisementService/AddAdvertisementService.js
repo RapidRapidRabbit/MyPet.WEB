@@ -19,7 +19,7 @@ import { myPetApi } from "../Hosts";
     }
     catch(err){
       console.error(err);
-      return;      
+           
     }                   
 }
 

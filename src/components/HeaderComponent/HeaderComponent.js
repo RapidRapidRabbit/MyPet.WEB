@@ -1,9 +1,9 @@
 import { useState, useEffect, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./HeaderComponent.css";
-import { setCookie } from "../../services/GetSetCookieService";
-import { CheckToken } from "../../services/ValidateTokenService";
 import IsEmailConfirmedHeadComponent from "../IsEmailConfirmedHeadComponent/IsEmailConfirmedHeadComponent";
+import useAuth from "../../features/Hooks/useAuth";
+
 
 
 
@@ -17,42 +17,36 @@ const Header = () => {
     
     
     const[isLogin, setLogin] = useState(false); 
-    const[isEmailConfirmed, setisEmailConfirmed] = useState(false);    
+    const[isEmailConfirmed, setisEmailConfirmed] = useState(false);
+    const auth = useAuth();
+    const navigate = useNavigate();
+      
 
-    useEffect(()=>{
-       
-     CheckToken().then(data => {
-      try{
-      if(JSON.parse(data.tokenValidation) === true){               
-        setLogin(true); 
-        setisEmailConfirmed(JSON.parse(data.isEmailConfirmed));        
-      }
-      else{
-        setLogin(false)       
-      }
-     }
-     catch(err){
-      console.log(err);
-      setLogin(false); 
-     }
-    })                                                                
-      },[])    
+    useEffect(()=>{ 
+    
+    if(auth.isAuthed === true){
+      
+      setLogin(true);
+      setisEmailConfirmed(JSON.parse(auth.userData.isEmailConfirmed));
+
+    }else{
+      setLogin(false);
+    }
+      },[auth.isAuthed])
+      
+    
     
     
     const handleMainPageLinkClick = (e) =>{
         e.preventDefault();
-        window.location = "/";
-        
+        window.location = "/";        
     } 
     
     const handleLogOutClick = (e) =>{
-
         e.preventDefault();
-
-        setCookie("jwttoken", "", {
-            'max-age': -1
-          });
-        window.location = "/";             
+        auth.logOut();
+        setLogin(false);
+        navigate('/');                  
     }
 
                  

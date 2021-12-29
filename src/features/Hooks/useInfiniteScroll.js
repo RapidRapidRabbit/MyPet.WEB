@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useInfiniteScrollHook = (callback) => {
+const useInfiniteScroll = (callback) => {
   const [isFetching, setIsFetching] = useState(false);
 
   /* eslint-disable */
@@ -31,4 +31,4 @@ const useInfiniteScrollHook = (callback) => {
   return [setIsFetching];
 };
 
-export default useInfiniteScrollHook;
+export default useInfiniteScroll;

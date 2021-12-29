@@ -19,8 +19,7 @@ export const GetUsersPagedAds = async (pageNumber) =>{
                 return result;
         }
         catch(error){
-                console.log(error)
-                return null;
+                console.log(error)                
         }
         
            

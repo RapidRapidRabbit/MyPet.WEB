@@ -1,0 +1,6 @@
+.user-block{    
+    border: 1px dotted red;
+    line-height: 50px;
+    text-align: center;   
+    min-height: 50px;
+}

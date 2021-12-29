@@ -4,8 +4,8 @@
     margin: auto;
     margin-top: 10px;
     display: block;
-    width: 70%;
-    max-height: 300px;
+    width: 60%;
+    /* max-height: 300px; */
 }
 .line-name{    
     font-weight: bold;

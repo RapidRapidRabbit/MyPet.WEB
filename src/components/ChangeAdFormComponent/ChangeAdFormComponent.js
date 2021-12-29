@@ -54,15 +54,16 @@ const ChangeAdFormComponent2 = (props) => {
      .then(responseData =>{
       
      try{ 
-       console.log(responseData);
-      if(responseData.statusCode >= 400){                
+       
+      if(responseData.status >= 400){  
+        console.log(responseData);             
         let errorsArr = GetServerErrors(responseData.errors);
         setServerError(errorsArr);
-        setServerError([responseData.message]);
+       // setServerError([responseData.message]);
         return;        
       }else{
-          alert();
-          window.location = "/myads";
+          
+         window.location = "/myads";
       }     
               
      }

@@ -1,10 +1,11 @@
 import "./AdCardContainer.css";
 import { GetPagedAds } from "../../services/GetPagedAdsService";
 import { AdCard } from "../AdCard/AdCard";
-import useInfiniteScrollHook from "../../features/useInfiniteScrollHook/useInfiniteScrollHook";
+import useInfiniteScroll from "../../features/Hooks/useInfiniteScroll";
 import { useEffect, useState, useRef, Fragment } from "react";
 import SearchFormComponent from "../SearchFormComponent/SearchFormComponent";
 import Loader from "../Loader/Loader";
+import GetPagedAdsServiceClass from "../../services/GetPagedAdsService/GetPagedAdsServiceClass";
 
 
 
@@ -49,14 +50,16 @@ const AdCardContainer = () => {
     setIsFetching(false);
   }
 
-  const [setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
+  const [setIsFetching] = useInfiniteScroll(fetchMoreAds) 
   const [adCardsdata, setAdCardsData] = useState([]) 
 
-// useEffect(()=>{
-//     console.log(`previousResponseLenght changed to: ${previousResponseLenght}`);
-// },[previousResponseLenght])
 
   useEffect(()=>{
+
+    // GetPagedAdsServiceClass.getPagedAds(page.current, searchFormData.current).then(response => {
+    //     setAdCardsData(response);
+    //     setIsLoading(false);
+    // })
 
     try{
       GetPagedAds(page.current, searchFormData.current).then(response => {        
@@ -69,7 +72,7 @@ const AdCardContainer = () => {
     }
      catch(err){
       setIsLoading(false);
-      console.log(err);      
+      console.error(err);      
     }
   },[])
   

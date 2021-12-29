@@ -1,6 +1,6 @@
 import { MyAdCard } from "../MyAdCard/MyAdCard";
 import "./MyAdsContainer.css";
-import useInfiniteScrollHook from "../../features/useInfiniteScrollHook/useInfiniteScrollHook";
+import useInfiniteScroll from "../../features/Hooks/useInfiniteScroll";
 import { useEffect, useState, useRef } from "react";
 import { GetUsersPagedAds } from "../../services/GetUsersPagedAdsService/GetUsersPagedAdsService";
 
@@ -27,7 +27,7 @@ const MyAdsContainer = () => {
         return;
       }
   }
-    const [setIsFetching] = useInfiniteScrollHook(fetchMoreAds) 
+    const [setIsFetching] = useInfiniteScroll(fetchMoreAds) 
     const [data, setData] = useState([])
   
   

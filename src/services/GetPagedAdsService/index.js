@@ -1,3 +1,4 @@
+import { GetRequest } from "../BaseHttpService/BaseHttpService";
 import { myPetApi } from "../Hosts";
 
 export const GetPagedAds = async (pageNumber, searchFormData) =>{
@@ -14,16 +15,13 @@ export const GetPagedAds = async (pageNumber, searchFormData) =>{
              
         
          
-        try{  
-                const response = await fetch(url);
+       return GetRequest(url);
+               // const response = await fetch(url);
 
                // return response;
-               let result = await response.json();        
-               return result;
-        }
-        catch(error){
-                console.error(error)                
-        }
+              // let result = await response.json();        
+              // return result;
+        
         
            
        

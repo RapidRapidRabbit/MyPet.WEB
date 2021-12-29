@@ -1,0 +1,11 @@
+.chat-container{
+    margin-top: 10px;
+}
+.chats-list{
+    border: 2px dotted royalblue;
+    /* min-height: 500px; */
+    max-width: 300px;
+}
+.chat{    
+    border: 2px dotted sandybrown;
+}

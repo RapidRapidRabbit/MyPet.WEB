@@ -1,43 +1,29 @@
-import React from 'react'
+import { useState } from 'react'
 
 const ChatInput = (props) => {
-  const [user, setUser] = React.useState('')
-  const [message, setMessage] = React.useState('')
+
+  const [message, setMessage] = useState('')
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const isUserProvided = user && user !== ''
-    const isMessageProvided = message && message !== ''
-
-    if (isUserProvided && isMessageProvided) {
-      props.sendMessage(user, message)
+    
+    if(message.length > 0){
+      setMessage('');   
+      props.sendMessage(message)
     }
+      
   }
-  const onUserUpdate = (e) => {
-    setUser(e.target.value)
-  }
+  
   const onMessageUpdate = (e) => {
     setMessage(e.target.value)
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        id="user"
-        name="user"
-        value={user}
-        onChange={onUserUpdate}
-        placeholder="user"
-      />
-      <br />
-      <input
-        id="message"
-        name="message"
-        value={message}
-        onChange={onMessageUpdate}
-        placeholder="message"
-      />
+    <form onSubmit={onSubmit}>   
+      
+      <input id="message" name="message" value={message} onChange={onMessageUpdate} placeholder="message"/>
       <button type="submit">Submit</button>
+      
     </form>
   )
 }
