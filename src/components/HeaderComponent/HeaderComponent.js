@@ -5,14 +5,6 @@ import IsEmailConfirmedHeadComponent from "../IsEmailConfirmedHeadComponent/IsEm
 import useAuth from "../../features/Hooks/useAuth";
 
 
-
-
-
-
-
-
-
-
 const Header = () => {
     
     
@@ -21,7 +13,7 @@ const Header = () => {
     const auth = useAuth();
     const navigate = useNavigate();
       
-
+ /* eslint-disable */
     useEffect(()=>{ 
     
     if(auth.isAuthed === true){
@@ -33,6 +25,7 @@ const Header = () => {
       setLogin(false);
     }
       },[auth.isAuthed])
+ /* eslint-enable */
       
     
     
@@ -61,6 +54,7 @@ const Header = () => {
     {isLogin === true && 
       <Fragment>
     <div className="email-confirm-block"><IsEmailConfirmedHeadComponent isConfirmed = {isEmailConfirmed}/></div>
+    <NavLink to="/chat" className="btn btn-outline-primary login-button">Сообщения</NavLink>
     <NavLink to="/addadvertisement" className="btn btn-outline-primary login-button">Добавить объявление</NavLink>
     <NavLink to="/myads" className="btn btn-outline-primary login-button">Мои объявления</NavLink>     
     <button type="button" className="btn btn-outline-primary login-button" onClick={handleLogOutClick}>Выход</button>          

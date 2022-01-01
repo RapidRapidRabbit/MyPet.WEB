@@ -2,10 +2,9 @@ import "./SignInFormComponent.css";
 import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { setCookie } from "../../services/GetSetCookieService";
 import { useNavigate } from "react-router-dom";
 import  SignInService  from "../../services/SignInService/SignInService";
-//import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
+import useAuth from "../../features/Hooks/useAuth";
 
 
 
@@ -15,6 +14,7 @@ const SignInFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
   const navigate = useNavigate();
+  const auth = useAuth();
   
 
   const {
@@ -23,25 +23,26 @@ const SignInFormComponent = () => {
     formState: { errors },   
   } = useForm();
 
-  const onSubmit = (formData) => {    
+  const onSubmit = async (formData) => {
+    
+    try {
 
-     SignInService(formData).then(data => {      
+    await SignInService(formData).then(data => {      
 
-      try{
+      
                  
       if(data.status >= 400){         
         setServerError(data.errors);
         return;
-      }                 
-      setCookie("jwttoken", data.jwttoken);
-      
-     // window.location = '/';
-     navigate('/mainpage'); 
-    }
-    catch{
+      }
+     auth.logIn(data); 
+     navigate('/');
+    })  
+    } catch {
       setServerError(["Something went wrong"])
     }
-    })                          
+
+     
   }
    
   

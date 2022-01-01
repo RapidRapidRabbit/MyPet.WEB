@@ -1,6 +1,15 @@
-.user-block{    
-    border: 1px dotted red;
+.user-block{   
+    width: 100%;
     line-height: 50px;
-    text-align: center;   
+    padding-left: 20px;
+    text-align: left;
+    font-weight: bolder;   
     min-height: 50px;
+    border-bottom: 0.5px solid black;
+}
+.user-block:hover{
+    cursor: pointer;
+}
+.active-chat{
+    background-color: #0d6efd;
 }

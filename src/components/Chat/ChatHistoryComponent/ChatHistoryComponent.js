@@ -39,7 +39,12 @@ const ChatHistoryComponent = (props) => {
         GetChatMessagesById(props.chat.chatId).then(response => {           
             setMessages(response);
         })
-    },[props.chat.chatId])    
+    },[props.chat.chatId])
+    
+    useEffect(()=>{
+        const element = document.getElementById("elementForScrollTo")
+        element.scrollIntoView({behavior: "auto"});
+    },[messages])
 
     const sendMessage = async (message) => {
 
@@ -65,19 +70,21 @@ const ChatHistoryComponent = (props) => {
     }
 
 
-    return props.chat != null
+    return <div className="col-sm chat">
+     {props.chat.chatId != null
       ? <Fragment>
-       with user: {props.chat.withUserId}<br/>
-
         {messages && messages.length > 0 && 
             messages.map((item,index) => <Message item={item} key={index}/>)}
-
             <ChatInput sendMessage={sendMessage}/>
         </Fragment> 
-      : <p className="not-found-string">К сожалению, ничего не нашлось.</p> 
-      
-    
-    
+      : <Fragment>       
+        <p className="not-found-string">Выберите чат слева</p>
+        </Fragment>}
+
+        <div id="elementForScrollTo"></div>
+        </div>
+        
+        
 }
 
 export default ChatHistoryComponent;

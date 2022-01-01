@@ -1,11 +1,9 @@
-import BaseClassHttpService from "../BaseHttpService/BaseClassHttpService";
-import { myPetApi } from "../Hosts";
+import { myPetApi } from "../../Hosts";
+import BaseHttpService from "../BaseHttpService";
 
 
-class GetPagedAdsServiceClass extends BaseClassHttpService{
-
-    static async getPagedAds(pageNumber, searchFormData){
-
+const GetPagedAds = async (pageNumber, searchFormData) =>{        
+        
         let url = new URL("/Advertisement/GetAdsPagedList",`${myPetApi}`);
         url.searchParams.set('PageNumber', pageNumber);
 
@@ -14,12 +12,9 @@ class GetPagedAdsServiceClass extends BaseClassHttpService{
         if(searchFormData.locationTown)
                 url.searchParams.set('LocationTown', searchFormData.locationTown);
         if(searchFormData.category)
-                url.searchParams.set('Category', searchFormData.category);
-
-
-        return this.getRequest(url);
-
-    }
+                url.searchParams.set('Category', searchFormData.category);        
+       
+       return await BaseHttpService(url);
 }
 
-export default GetPagedAdsServiceClass;
+export default GetPagedAds;

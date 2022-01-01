@@ -8,11 +8,11 @@ import MyAdsPage from "./pages/MyAdsPage/MyAdsPage";
 import ChangeAdvertisementPage from "./pages/ChangeAdvertisementPage/ChangeAdvertisementPage";
 import AdvertisementDetailsPage from "./pages/AdvertisementDetailsPage/AdvertisementDetailsPage";
 import EmailConfirmedPage from "./pages/EmailConfirmedPage/EmailConfirmedPage";
-//import RequireAuth from "./components/RequireAuthComponent/RequireAuth";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
-import ChatsWindowComponent from "./components/Chat/ChatsWindowComponent";
 import useAuth from "./features/Hooks/useAuth";
 import Loader from "./components/Loader/Loader";
+import RequireAuth from "./components/RequireAuthComponent/RequireAuth";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 
 
@@ -29,15 +29,15 @@ const Router = () => {
         <Route path = "/mainpage" element = {<HomePage/>} />
         <Route path = "/SignUp" element = {<SignUpForm/>} />
         <Route path = "/SignIn" element = {<SignInForm/>} />
-        <Route path = "/AddAdvertisement" element = {<AddAdvertisementPage/>} />   {/*private*/} 
-        <Route path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" element = {<ChangeAdvertisementPage/>} />  {/*private*/}
-        <Route path = "/MyAds" element = {<MyAdsPage/>} />  {/*private*/}
+        <Route path = "/AddAdvertisement" element = {<RequireAuth><AddAdvertisementPage/></RequireAuth>} />   {/*private*/} 
+        <Route path = "/ChangeAdvertisement/:adId/:petName/:locationTown/:locationStreet/:locationHouse/:description" element = {<RequireAuth><ChangeAdvertisementPage/></RequireAuth>} />  {/*private*/}
+        <Route path = "/MyAds" element = {<RequireAuth><MyAdsPage/></RequireAuth>} />  {/*private*/}
         <Route path = "/AdvertisementDetails/:adId" element = {<AdvertisementDetailsPage/>} /> 
         <Route path = "/emailConfirmation/" element = {<EmailConfirmedPage/>} />
         <Route path = "/errorPage/" element = {<ErrorPage/>} />
         <Route path="*" element={<HomePage/>} />
        
-        <Route path="/chat" element={<ChatsWindowComponent/>} />               
+        <Route path="/chat" element={<RequireAuth><ChatPage/></RequireAuth>} />               
     </Routes>
     </BrowserRouter>
     ) : (

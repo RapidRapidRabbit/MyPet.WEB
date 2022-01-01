@@ -12,27 +12,27 @@ function AuthProvider(props) {
   const [userData, setUserData] = useState(null)
 
 
-  
+   
   const logOut = useCallback (()=>{
     setCookie("jwttoken", "", {'max-age': -1});    
     setAuthed(false);
     setUserData(null);
-  },[]) 
-
-  const logIn = () =>{
-      console.log("set true")
-      setAuthed(true)
-  }
+  },[])
+   
+  const logIn = useCallback((data)=>{    
+    setCookie("jwttoken", data.jwtToken) 
+    setUserData(data);     
+    setAuthed(true);      
+  },[]); 
 
   
 
-
+ /* eslint-disable */
   const loadData = useCallback( async ()=>{
 
     const token = getCookie("jwttoken")
 
-     if(token === null){
-         console.log("token is null")
+     if(token === null){         
          setAuthed(false)         
      }else{
 
@@ -52,6 +52,7 @@ function AuthProvider(props) {
       }} 
      setIsLoaded(true);
   },[])
+  /* eslint-enable */ 
 
   useEffect(()=>{    
     loadData();

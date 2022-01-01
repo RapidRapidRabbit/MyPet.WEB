@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import switchCategory from "../../services/SwitchCategory/SwitchCategory";
-import { myPetApi } from "../../services/Hosts";
+import switchCategory from "../../../services/SwitchCategory/SwitchCategory";
+import { myPetApi } from "../../../services/Hosts";
 import "./AdDetailsViewComponent.css"
 
 const AdDetailsViewComponent = ({item}) => {

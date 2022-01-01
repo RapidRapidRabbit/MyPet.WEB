@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import './ChatInput.css';
 
 const ChatInput = (props) => {
 
@@ -19,12 +20,14 @@ const ChatInput = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit}>   
+   
+    <form className="chat-form" onSubmit={onSubmit}>   
       
-      <input id="message" name="message" value={message} onChange={onMessageUpdate} placeholder="message"/>
-      <button type="submit">Submit</button>
+      <input className="form-control chat-input" value={message} onChange={onMessageUpdate} placeholder="Введите сообщение" autoComplete="off"/>
+      <button type="submit" className="btn btn-primary">Отправить</button>
       
     </form>
+   
   )
 }
 export default ChatInput

@@ -1,0 +1,13 @@
+.chat-form{
+    display: flex;
+    position: sticky;    
+    bottom: 0;              
+    border-top: 1px solid black;
+    padding: 15px;
+}
+.chat-input{
+    /* display: inline-block; */
+    margin-right: 15px;    
+    min-width: 300px;
+    max-width: 500px;
+}

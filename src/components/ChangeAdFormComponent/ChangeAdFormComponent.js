@@ -2,9 +2,9 @@ import "./ChangeAdFormComponent.css"
 import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { getJwtTokenData } from "../../services/GetJwtTokenData";
 import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 import UpdateAdvertisementService from "../../services/UpdateAdvertisementService/UpdateAdService";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,6 +14,7 @@ import UpdateAdvertisementService from "../../services/UpdateAdvertisementServic
 const ChangeAdFormComponent2 = (props) => {
 
   const [serverErrors, setServerError] = useState([]);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -31,15 +32,7 @@ const ChangeAdFormComponent2 = (props) => {
     e.stopPropagation();    
   }
 
-  const onSubmit = (data) => {     
-    
-    let jwtTokenData = getJwtTokenData();
-    
-    if(jwtTokenData == null){
-      setServerError(["Сначала войдите или зарегистрируйтесь"]);
-      return;
-    }       
-    
+  const onSubmit = (data) => {  
     let formData = new FormData();
 
     for (let key in data) {      
@@ -63,7 +56,7 @@ const ChangeAdFormComponent2 = (props) => {
         return;        
       }else{
           
-         window.location = "/myads";
+        navigate("/myads");
       }     
               
      }
@@ -85,13 +78,7 @@ const addAdForm =
 <div className="mb-3">
   <label htmlFor="formFile" className="form-label">Фотография питомца
   </label>
-  <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png"
-   {...register('Image', {                        
-          })} 
-  ></input>
-  <div className="invalid-feedback">    
-    {errors.Images && errors.Images.message}
-    </div>     
+  <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png"></input>  
 </div>
 <div className="mb-3">
   <label htmlFor="Category" className="form-label">Категория

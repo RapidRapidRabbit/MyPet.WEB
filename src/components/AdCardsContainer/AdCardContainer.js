@@ -1,13 +1,10 @@
 import "./AdCardContainer.css";
-import { GetPagedAds } from "../../services/GetPagedAdsService";
+import GetPagedAds from "../../services/Http/GetPagedAdsService";
 import { AdCard } from "../AdCard/AdCard";
 import useInfiniteScroll from "../../features/Hooks/useInfiniteScroll";
 import { useEffect, useState, useRef, Fragment } from "react";
 import SearchFormComponent from "../SearchFormComponent/SearchFormComponent";
 import Loader from "../Loader/Loader";
-import GetPagedAdsServiceClass from "../../services/GetPagedAdsService/GetPagedAdsServiceClass";
-
-
 
 
 const AdCardContainer = () => {
@@ -15,72 +12,72 @@ const AdCardContainer = () => {
   const page = useRef(1);
   const searchFormData = useRef({});
   const [previousResponseLenght, setPreviousResponseLenght] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  
+  const [isLoading, setIsLoading] = useState(true);  
 
-  const getDataFromSearchForm = (dataFromChildComponent) => {        
+  const sendRequestFromSearchForm = (dataFromChildComponent) => {
+
     searchFormData.current = dataFromChildComponent;
     page.current = 1;
     
-    GetPagedAds(page.current, searchFormData.current).then(response =>{
-               
-        setAdCardsData(response);
-        setPreviousResponseLenght(response.length);
-              
-    });
+    GetPagedAds(page.current, searchFormData.current)
+    .then(response =>{           
+      setAdCardsData(response);
+      setPreviousResponseLenght(response.length);          
+    })
+    .catch(error =>{
+      console.error(error)
+    })
+    .finally(()=>{
+      // do something
+    })
   }  
 
   const fetchMoreAds = () => {   
-    try{      
+         
     
     if(previousResponseLenght > 0){
       
     page.current++;
 
-    GetPagedAds(page.current, searchFormData.current).then(response =>{      
+    GetPagedAds(page.current, searchFormData.current)
+    .then(response =>{
       setPreviousResponseLenght(response.length);
-
       if(response.length > 0){
         setAdCardsData(prevState => prevState.concat(response))
-      }});    
-  }}    
-    catch(err){
-      console.error(err);      
-    }
-    setIsFetching(false);
+      }})
+    .catch(error =>{
+      console.error(error.message);
+    })
+    .finally(()=>{
+      setIsFetching(false);
+    })    
+  }     
   }
 
   const [setIsFetching] = useInfiniteScroll(fetchMoreAds) 
   const [adCardsdata, setAdCardsData] = useState([]) 
 
 
-  useEffect(()=>{
-
-    // GetPagedAdsServiceClass.getPagedAds(page.current, searchFormData.current).then(response => {
-    //     setAdCardsData(response);
-    //     setIsLoading(false);
-    // })
-
-    try{
-      GetPagedAds(page.current, searchFormData.current).then(response => {        
-        
+  useEffect(()=>{    
+     
+    GetPagedAds(page.current, searchFormData.current)
+    .then(response => {     
       setPreviousResponseLenght(response.length);
-      setAdCardsData(response);
-      setIsLoading(false);
-
+      setAdCardsData(response);      
       })
-    }
-     catch(err){
+    .catch(error => {
+      console.error(error);
+      })
+    .finally(()=>{
       setIsLoading(false);
-      console.error(err);      
-    }
+    })  
   },[])
   
    
   
     return <Fragment>
 
-    <SearchFormComponent parentCallback = {getDataFromSearchForm}/>
+    <SearchFormComponent parentCallback = {sendRequestFromSearchForm}/>
     <Loader setShow={isLoading}/>
 
      <div className="custom-card-container">

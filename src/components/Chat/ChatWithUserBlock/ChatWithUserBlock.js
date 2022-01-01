@@ -8,7 +8,7 @@ const handleBlockClick = () =>{
 }
 
     return <Fragment>
-        <div className="user-block" onClick={handleBlockClick}>{props.item.withUserName}</div>
+        <div className={"user-block " + (props.activeChatId === props.item.id ? "active-chat" : "")} onClick={handleBlockClick}>{props.item.withUserName}</div>
     </Fragment>
 }
 
