@@ -14,12 +14,13 @@ const MyAdsContainer = () => {
     const navigate = useNavigate();
 
     const fetchMoreAds = () => {      
-  
+      
       if(previousResponseLenght > 0){
         page.current++;  
       GetUsersPagedAds(page.current)
-      .then(response => 
-        setData(prevState => response.length > 0 ? prevState.concat(response) : prevState))
+      .then(response => {
+        setPreviousResponseLenght(response.length) 
+        setData(prevState => response.length > 0 ? prevState.concat(response) : prevState)})
       .catch(error => {
         console.error(error);
       })
@@ -54,8 +55,8 @@ const MyAdsContainer = () => {
     {data && data.length > 0 ?
      data.map((item, index) => 
             <MyAdCard item = {item} key = {index}/>
-        ) : 
-        <p className="not-found-string">У вас пока нет объявлений. <NavLink to="/addadvertisement">Добавить</NavLink></p>}
+        ) : ( 
+        <p className="not-found-string">У вас пока нет объявлений. <NavLink to="/addadvertisement">Добавить</NavLink></p>)}
      </div>
     
 }

@@ -2,9 +2,11 @@ import "./AddAdvertisementFormComponent.css";
 import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { getJwtTokenData } from "../../services/GetJwtTokenData";
-import AddAdvertisementService from "../../services/AddAdvertisementService/AddAdvertisementService";
+import AddAdvertisementService from "../../services/Http/AddAdvertisementService/AddAdvertisementService";
 import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
+import { useNavigate } from "react-router";
+import useAuth from '../../features/Hooks/useAuth';
+import UnathorizedAccessError from "../../features/CustomExceptions/Http/UnathorizedAccessError";
 
 
 
@@ -14,6 +16,8 @@ import { GetServerErrors } from "../../services/ServerValidationService/ServerVa
 const AddAdvertisementFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
+  const navigate = useNavigate();
+  const auth = useAuth()
 
   const {
     register,
@@ -21,43 +25,39 @@ const AddAdvertisementFormComponent = () => {
     formState: { errors },   
   } = useForm();
 
-  const onSubmit = (data) => { 
-    
-    let jwtTokenData = getJwtTokenData();
-    
-    if(jwtTokenData == null){
-      setServerError(["Сначала войдите или зарегистрируйтесь"]);
-      return;
-    } 
+  const onSubmit = (data) => {
     
     let formData = new FormData();
 
     for (let key in data) {      
       formData.append(key, data[key]);      
     }
-    formData.append("Image", data.Image[0]);
-    
-    
+    formData.append("Image", data.Image[0]);  
     
      AddAdvertisementService(formData)
      .then(responseData =>{
-      
-     try{
       
       if(responseData.status === 400){                
         let errorsArr = GetServerErrors(responseData.errors);
         setServerError(errorsArr);
         return;        
       }
-      if(responseData.status >= 200 && responseData.status < 300){
-        console.log(responseData);
-        window.location = "/";
-      }
-     }
-     catch{
-      setServerError(["Something went wrong"]);
-     }         
-     });  
+      if(responseData.status >= 200 && responseData.status < 300){        
+       navigate("/myads");
+      }        
+     })
+     .catch(error => {
+        if(error instanceof UnathorizedAccessError){
+          auth.logOut();
+          navigate('/signin');
+        }
+        else{
+          setServerError(["Что-то пошло не так, попробуйте позже"])
+        }
+     })
+     .finally(()=>{
+       //do something
+     })  
   }
  
  

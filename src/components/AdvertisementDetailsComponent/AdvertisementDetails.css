@@ -6,6 +6,8 @@
 }
 .not-found-string{
     padding: 10px;
+    font-weight: bolder;
+    font-size: large;
     /* color: whitesmoke; */
     font-style: italic;
 }

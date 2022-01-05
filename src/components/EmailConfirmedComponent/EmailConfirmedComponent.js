@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
-import EmailConfirmService from "../../services/EmailConfirmService/EmailConfirmService";
+import EmailConfirmService from "../../services/Http/EmailConfirmService/EmailConfirmService";
 import "./EmailConfirmedComponent.css";
 import Loader from "../Loader/Loader";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 
@@ -10,30 +10,34 @@ const EmailConfirmedComponent = (props) =>{
 
     const [isconfirmingOk, setConfirmingStatus] = useState(null);
     const [seconds, setSeconds] = useState(5);
-    let navigate = useNavigate();   
+   // let navigate = useNavigate();   
 
 /* eslint-disable */
-    useEffect(()=>{       
+    useEffect(()=>{     
 
-        let normalizedToken = props.params.get("emailtoken").replace(/ /g,"+");        
-
-        EmailConfirmService(props.params.get("userid"), normalizedToken).then(response => {
+        EmailConfirmService(props.params.get("userid"), props.params.get("emailtoken"))
+        .then(response => {
             
-            if(response === null || response.statusCode >= 400 || response.confirmationResult === false ){                
-                setConfirmingStatus(false);
-            }else if (response.confirmationResult === true){ 
-
-                setConfirmingStatus(true);                                            
-            }           
+            if(response.confirmationResult === true)               
+                setConfirmingStatus(true);    
+            else
+                setConfirmingStatus(false);              
         })
-
+        .catch(error => {
+            setConfirmingStatus(false);
+            console.error(error);
+        })
+        .finally(()=>{
+            //do something
+        });
         let timer = setInterval(()=>{setSeconds(seconds => seconds - 1);}, 1000);
         return () => clearInterval(timer);
     },[])
    
     useEffect(()=>{
         if(seconds <= 0 && isconfirmingOk === true)
-          navigate("../success", { replace: true });
+         // navigate("../success", { replace: true });
+         window.location = '/';
     },[seconds])
 /* eslint-enable */
 

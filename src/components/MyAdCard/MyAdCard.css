@@ -8,3 +8,17 @@
 .users-card{
     min-height: 350px;
 }
+
+.ad-status-block{
+    display: inline-block;   
+}
+.approved-status{
+    color: seagreen;
+}
+.onmoderation-status{
+    color: #ebb000
+}
+.rejected-status{
+    color: #dc3545;
+    /* color: firebrick; */
+}

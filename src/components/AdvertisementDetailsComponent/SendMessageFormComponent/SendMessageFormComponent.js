@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import "./SendMessageFormComponent.css";
 import useAuth from "../../../features/Hooks/useAuth";
 import SendMessageService from "../../../services/Http/SendMessageService/SendMessageService";
+import { NavLink } from "react-router-dom";
 
-const SendMessageFormComponent = (props) =>{
+const SendMessageFormComponent = ({adItem}) =>{
 
     const [feedbackMessage, setFeedbackMessage] = useState(null)
     const [isSended, setIsSended] = useState(false);
@@ -17,25 +18,28 @@ const SendMessageFormComponent = (props) =>{
   } = useForm(); 
   
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
 
     const backendMessageModel = {
-            touserid: props.adOwnerId,            
+            touserid: adItem.userId,            
             message: data.Message,
-        };
-      
-      try {
-       await SendMessageService(backendMessageModel).then(response => {
+        };      
+     
+       SendMessageService(backendMessageModel)
+       .then(response => {
          if(response.status >= 400){
             setFeedbackMessage(failureFeedbackMessage);
          }else{
            setFeedbackMessage(successFeedbackMessage)
          }
-       })  
-      } catch (error) {
-        setFeedbackMessage(failureFeedbackMessage) 
-      }
-      setIsSended(true);
+       })
+       .catch(error =>{
+          setFeedbackMessage(failureFeedbackMessage);
+          console.error(error);
+       })
+       .finally(()=>{
+          setIsSended(true);
+       })    
    }
    
  const successFeedbackMessage = <div className="alert alert-success" role="alert">
@@ -50,7 +54,8 @@ const failureFeedbackMessage = <div className="alert alert-danger" role="alert">
     
        {!isSended && (
          auth.isAuthed ? (       
-           <form onSubmit={handleSubmit(onSubmit)} noValidate>        
+           <form onSubmit={handleSubmit(onSubmit)} noValidate>
+           <span className="send-message-form-header">Вы можете отправить сообщение пользователю '{adItem.userName}'</span>        
       <textarea className={"form-control message-input " + (errors.Message  ? "is-invalid" : '')} rows="3" placeholder="Введите сообщение" autoComplete="off"
       {...register('Message', {
             required: 'Обязательное поле',
@@ -70,7 +75,7 @@ const failureFeedbackMessage = <div className="alert alert-danger" role="alert">
       <button type="submit" className="btn btn-primary">Отправить</button>
     </form>
           ) : (
-           <p className="not-found-string">Войдите или зарегистрируйстесь чтобы отправлять сообщения</p>
+           <p className="not-found-string"><NavLink to="/signin">Войдите</NavLink> или <NavLink to="/signup">Зарегистрируйтесь</NavLink> чтобы отправлять сообщения.</p>
           )
        )}
 

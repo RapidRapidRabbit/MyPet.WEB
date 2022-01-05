@@ -11,10 +11,18 @@
 .search-form-input-block .town-block{
     position: relative;
 }
-.search-button{
-    align-self: center;
+.search-button-block{
+    align-self: center;    
     margin-top: 15px;
     margin-left: 30px;
+}
+#search-button{
+    width: 70px;
+    border-radius: 3px;
+}
+.button-content{
+    display: block;
+    width: 50px;
 }
 .search-label{
     color: antiquewhite;

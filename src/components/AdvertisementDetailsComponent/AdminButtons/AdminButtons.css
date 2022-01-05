@@ -1,0 +1,16 @@
+.admin-buttons-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+.admin-buttons-block-header{
+    display: block;
+    width: 100%;
+    text-align: center;
+    
+}
+.confirm-alert-block{
+    margin-top: 20px;
+    text-align: center;
+}

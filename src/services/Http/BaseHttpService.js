@@ -5,25 +5,28 @@ import { getCookie } from "../GetSetCookieService";
 
 const BaseHttpService = async (uri, fetchRequestOptions) =>{
 
-    const authToken = "Bearer " + getCookie("jwttoken");    
+    const authToken = "Bearer " + getCookie("jwttoken");
 
-    if(!fetchRequestOptions){
-        console.log('no options')
+    const AddAuthHeader = () =>{
+        if(!fetchRequestOptions){
+       // console.log('no options')
         fetchRequestOptions = {
             headers: {
                 'Authorization': authToken,     
             }
         }
     }else if (!fetchRequestOptions.headers){
-        console.log('no headers')
+      //  console.log('no headers')
         fetchRequestOptions.headers = {
             'Authorization': authToken,
         }
     }else if (fetchRequestOptions.headers){
-        console.log("has headers")
+     //   console.log("has headers")
         fetchRequestOptions.headers['Authorization'] = authToken
     }
-        
+    }
+    
+    AddAuthHeader();    
     const response = await fetch(uri, fetchRequestOptions);
     
     if(response.status === 401){

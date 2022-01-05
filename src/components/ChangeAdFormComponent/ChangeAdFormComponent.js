@@ -2,19 +2,18 @@ import "./ChangeAdFormComponent.css"
 import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
-import UpdateAdvertisementService from "../../services/UpdateAdvertisementService/UpdateAdService";
+import UpdateAdvertisementService from "../../services/Http/UpdateAdvertisementService/UpdateAdService";
 import { useNavigate } from "react-router-dom";
-
-
-
-
+import UnathorizedAccessError from "../../features/CustomExceptions/Http/UnathorizedAccessError";
+import ForbiddenAccessError from "../../features/CustomExceptions/Http/ForbiddenAccessError";
+import useAuth from "../../features/Hooks/useAuth";
 
 
 const ChangeAdFormComponent2 = (props) => {
 
   const [serverErrors, setServerError] = useState([]);
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const {
     register,
@@ -39,31 +38,29 @@ const ChangeAdFormComponent2 = (props) => {
       formData.append(key, data[key]);      
     }
     formData.append("Image", data.Image[0]);
-    formData.append("AdId", props.aditem.adId);
-    
-    
+    formData.append("AdId", props.aditem.adId);  
     
      UpdateAdvertisementService(formData)
      .then(responseData =>{
-      
-     try{ 
-       
-      if(responseData.status >= 400){  
-        console.log(responseData);             
-        let errorsArr = GetServerErrors(responseData.errors);
-        setServerError(errorsArr);
-       // setServerError([responseData.message]);
+      if(responseData.status >= 400){       
+        setServerError([responseData.message]); 
         return;        
-      }else{
-          
+      }else{    
         navigate("/myads");
-      }     
-              
-     }
-     catch{
-      setServerError(["Something went wrong"]);
-     }         
-     });  
+      }           
+     })
+     .catch(error => {
+       console.error(error);
+       if(error instanceof UnathorizedAccessError || error instanceof ForbiddenAccessError){
+        auth.logOut();
+        navigate('/signin')
+       }else{
+        setServerError(["Что-то пошло не так, попробуйте позже"]);
+       }  
+     })
+     .finally(()=>{
+       //do something
+     })  
   }
  
  
@@ -78,7 +75,10 @@ const addAdForm =
 <div className="mb-3">
   <label htmlFor="formFile" className="form-label">Фотография питомца
   </label>
-  <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png"></input>  
+  <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png"
+  {...register('Image', {                        
+          })} 
+  ></input>  
 </div>
 <div className="mb-3">
   <label htmlFor="Category" className="form-label">Категория

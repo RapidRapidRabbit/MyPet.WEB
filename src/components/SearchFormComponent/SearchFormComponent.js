@@ -1,4 +1,4 @@
-import SearchSuggestComponent from "../SearchSuggestComponent/SearchSuggestComponent";
+import SearchSuggestComponent from "./SearchSuggestComponent/SearchSuggestComponent";
 import "./SearchFormComponent.css"
 import { useState } from "react";
 
@@ -52,8 +52,10 @@ const handleTownChange = (e) =>{
       <option value="Found">Найден</option>
     </select>  
   </div>
-  <div className="search-form-input search-button">  
-    <button type="button" className="btn btn-primary" onClick={handleSearchClick}>Поиск</button>
+  <div className="search-form-input search-button-block">  
+    <button type="button" className="btn btn-primary" onClick={handleSearchClick}>
+    <div className="button-content">{props.isSearching ? <span className="spinner-border spinner-border-sm"></span> : <span>Поиск</span>}</div>
+    </button> 
     </div>
   </div>
 }

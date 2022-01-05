@@ -12,12 +12,14 @@ const AdCardContainer = () => {
   const page = useRef(1);
   const searchFormData = useRef({});
   const [previousResponseLenght, setPreviousResponseLenght] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);  
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isSearching, setSearching] = useState(false);  
 
   const sendRequestFromSearchForm = (dataFromChildComponent) => {
 
     searchFormData.current = dataFromChildComponent;
     page.current = 1;
+    setSearching(true);  
     
     GetPagedAds(page.current, searchFormData.current)
     .then(response =>{           
@@ -25,10 +27,11 @@ const AdCardContainer = () => {
       setPreviousResponseLenght(response.length);          
     })
     .catch(error =>{
-      console.error(error)
+      console.error(error);
+      setAdCardsData([]);
     })
     .finally(()=>{
-      // do something
+      setSearching(false);
     })
   }  
 
@@ -46,7 +49,7 @@ const AdCardContainer = () => {
         setAdCardsData(prevState => prevState.concat(response))
       }})
     .catch(error =>{
-      console.error(error.message);
+      console.error(error);
     })
     .finally(()=>{
       setIsFetching(false);
@@ -69,25 +72,23 @@ const AdCardContainer = () => {
       console.error(error);
       })
     .finally(()=>{
-      setIsLoading(false);
+      setIsLoaded(true);
     })  
   },[])
   
    
   
-    return <Fragment>
-
-    <SearchFormComponent parentCallback = {sendRequestFromSearchForm}/>
-    <Loader setShow={isLoading}/>
-
+    return isLoaded ? (<Fragment>
+    <SearchFormComponent isSearching={isSearching} parentCallback={sendRequestFromSearchForm}/>
      <div className="custom-card-container">
-
      {adCardsdata && adCardsdata.length > 0 
       ? adCardsdata.map((item, index) => <AdCard item = {item} key = {index}/>) 
       : <p className="not-found-string">К сожалению, ничего не нашлось.</p> 
      } 
   </div>
-  </Fragment>
+  </Fragment>) : (
+    <Loader setShow={true}/>
+  )
 }
 
 export default AdCardContainer;

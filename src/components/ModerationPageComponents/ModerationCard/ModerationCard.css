@@ -1,0 +1,38 @@
+/* .moderation-card-wrapper{
+    width: 100%;    
+} */
+.moderation-card{
+    width: 100%;
+    display: block;
+    align-self: center;
+    max-height: 150px;    
+}
+
+.img-col{
+    max-width: 300px;
+    height: 100%;
+}
+
+.moderation-img{
+    width: 100%;
+    max-height: 148px;
+    object-fit: cover;
+}
+
+.moderation-line-name{    
+    font-weight: bold;
+    text-align: left;
+}
+.moderation-line-value{         
+    text-align: right;
+}
+.moderation-line-block{        
+    display: flex;
+    justify-content: space-between;        
+    width: 100%;
+    /* border: 1px solid wheat; */
+}
+
+.moderation-details-button{
+    margin-top: 10px;
+}

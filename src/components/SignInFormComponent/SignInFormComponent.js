@@ -3,8 +3,9 @@ import "../../App.css";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import  SignInService  from "../../services/SignInService/SignInService";
+import SignInService from "../../services/Http/SignInService/SignInService";
 import useAuth from "../../features/Hooks/useAuth";
+import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 
 
 
@@ -13,6 +14,7 @@ import useAuth from "../../features/Hooks/useAuth";
 const SignInFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
   const navigate = useNavigate();
   const auth = useAuth();
   
@@ -25,32 +27,28 @@ const SignInFormComponent = () => {
 
   const onSubmit = async (formData) => {
     
-    try {
+    setIsLoaded(false);
 
-    await SignInService(formData).then(data => {      
-
-      
-                 
+    await SignInService(formData)
+    .then(data => {              
       if(data.status >= 400){         
-        setServerError(data.errors);
+        setServerError(GetServerErrors(data.errors));
         return;
       }
      auth.logIn(data); 
      navigate('/');
-    })  
-    } catch {
-      setServerError(["Something went wrong"])
-    }
-
-     
+    })
+    .catch(error =>{
+      setServerError(["Что-то пошло не так, попробуйте позже."])
+      console.error(error)
+    })
+    .finally(()=>{
+      setIsLoaded(true);
+    })   
   }
-   
-  
- 
- 
 
-const SignInForm = 
-<div className="form-container" >
+
+  return <div className="form-container" >
 <div className="form-block">
 <div className="errors-block">
 {serverErrors && serverErrors.length > 0 && serverErrors.map((item, index) => 
@@ -88,15 +86,10 @@ const SignInForm =
     {errors.password && errors.password.message}
     </div>     
   </div>  
-  <button type="submit" className="btn btn-primary">Submit</button>
+  <button type="submit" className="btn btn-primary">Войти {!isLoaded && <span className="spinner-border spinner-border-sm"></span>}</button>
 </form>
 </div>
-</div>
-
-
-
-
-  return SignInForm; 
+</div> 
   
 }
 

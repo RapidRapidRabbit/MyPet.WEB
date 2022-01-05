@@ -1,18 +1,17 @@
 import "./SignUpFormComponent.css";
 import "../../App.css";
 import { useForm } from 'react-hook-form';
-import SignUpService from "../../services/SignUp/SignUpService";
+import SignUpService from "../../services/Http/SignUp/SignUpService";
 import { useState } from 'react';
 import { setCookie } from "../../services/GetSetCookieService";
-//import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
-
-
-
+import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
 
 
 const SignUpFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
+  
 
   const {
     register,
@@ -22,28 +21,25 @@ const SignUpFormComponent = () => {
   } = useForm();
 
   const onSubmit = (formData) => {
-    
-    
 
-     SignUpService(formData).then(data => {       
-      
-      try{
-        
-        if(data.statusCode === 400 ){ 
+    setIsLoaded(false);
 
-         setServerError(data.errors);         
-          return;
+     SignUpService(formData)
+     .then(data => {    
+        if(data.status >= 400 ){
+         setServerError(GetServerErrors(data.errors));         
+         return;
         }        
-          setCookie("jwttoken", data.jwttoken);
-          window.location = '/';
-      }
-      catch{                
-          setServerError(["Something went wrong"]);      
-      }    
-    })                                        
-  
-    
-   
+      setCookie("jwttoken", data.jwttoken);
+      window.location = '/';             
+    })
+    .catch(error => {
+      setServerError(["Что-то пошло не так, попробуйте позже"]);
+      console.error(error);
+    })
+    .finally(()=>{
+      setIsLoaded(true);
+    })
   }  
  
 
@@ -124,13 +120,10 @@ const SignUpForm =
     {errors.passwordConfirm && errors.passwordConfirm.message}
     </div>   
   </div>    
-  <button type="submit" className="btn btn-primary">Submit</button>
+  <button type="submit" className="btn btn-primary">Зарегистрироваться {!isLoaded && <span className="spinner-border spinner-border-sm"></span>}</button> 
 </form>
 </div>
 </div>
-
-
-
 
   return SignUpForm; 
   

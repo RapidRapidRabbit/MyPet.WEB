@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getCookie, setCookie } from "../../services/GetSetCookieService";
-import { CheckToken } from "../../services/ValidateTokenService";
+import { CheckToken } from "../../services/Http/ValidateTokenService";
 import { AuthContext } from "../Contexts/AuthContext";
 
 
@@ -8,6 +8,7 @@ import { AuthContext } from "../Contexts/AuthContext";
 function AuthProvider(props) {  
   
   const [isAuthed, setAuthed] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false)
   const [userData, setUserData] = useState(null)
 
@@ -16,13 +17,17 @@ function AuthProvider(props) {
   const logOut = useCallback (()=>{
     setCookie("jwttoken", "", {'max-age': -1});    
     setAuthed(false);
+    setIsAdmin(false);
     setUserData(null);
   },[])
    
   const logIn = useCallback((data)=>{    
     setCookie("jwttoken", data.jwtToken) 
     setUserData(data);     
-    setAuthed(true);      
+    setAuthed(true);
+    if(data.roles.includes('admin')){
+          setIsAdmin(true);
+        }                
   },[]); 
 
   
@@ -34,23 +39,31 @@ function AuthProvider(props) {
 
      if(token === null){         
          setAuthed(false)         
-     }else{
-
-      try {
-       await CheckToken().then(data => {
-
-          if(JSON.parse(data.tokenValidation) === true){               
-        setAuthed(true);
-        setUserData(data);        
-      }else{
-        logOut();  
+     }
+     else
+     { 
+       await CheckToken(token)
+       .then(data => {
+        if(JSON.parse(data.tokenValidation) === true){               
+          setAuthed(true);
+          setUserData(data);
+        if(data.roles.includes('admin')){
+          setIsAdmin(true);
+        }          
       }
-      
+      else{
+        logOut();  
+      }  
     })
-      } catch (error) {
-        setAuthed(false)
-      }} 
-     setIsLoaded(true);
+    .catch(error => {
+      console.error(error);
+      logOut();
+    })
+    .finally(()=>{
+      //do something
+    })    
+      } 
+  setIsLoaded(true);
   },[])
   /* eslint-enable */ 
 
@@ -63,11 +76,12 @@ function AuthProvider(props) {
     () => ({
       isLoaded,
       isAuthed,
+      isAdmin,
       userData,
       logIn,
       logOut,
     }),
-    [userData, isAuthed, isLoaded, logIn, logOut]
+    [userData, isAuthed, isLoaded, isAdmin, logIn, logOut]
   );
 
   return (      
