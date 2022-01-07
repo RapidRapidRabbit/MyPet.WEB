@@ -27,7 +27,7 @@ const BaseHttpService = async (uri, fetchRequestOptions) =>{
     }
     
     AddAuthHeader();    
-    const response = await fetch(uri, fetchRequestOptions);
+    const response = await fetch(uri, fetchRequestOptions);    
     
     if(response.status === 401){
         throw new UnathorizedAccessError();
@@ -39,7 +39,7 @@ const BaseHttpService = async (uri, fetchRequestOptions) =>{
         throw new BaseHttpError('Server error', response.status)
     }
 
-    const result = await response.json();
+    const result = await response.json();   
     return result;
 
 }

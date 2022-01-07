@@ -19,7 +19,8 @@ const AdCardContainer = () => {
 
     searchFormData.current = dataFromChildComponent;
     page.current = 1;
-    setSearching(true);  
+    setSearching(true);
+    setPreviousResponseLenght(100);  
     
     GetPagedAds(page.current, searchFormData.current)
     .then(response =>{           
@@ -35,8 +36,7 @@ const AdCardContainer = () => {
     })
   }  
 
-  const fetchMoreAds = () => {   
-         
+  const fetchMoreAds = () => {        
     
     if(previousResponseLenght > 0){
       
@@ -50,11 +50,9 @@ const AdCardContainer = () => {
       }})
     .catch(error =>{
       console.error(error);
-    })
-    .finally(()=>{
-      setIsFetching(false);
-    })    
-  }     
+    })  
+  }
+    setIsFetching(false);     
   }
 
   const [setIsFetching] = useInfiniteScroll(fetchMoreAds) 

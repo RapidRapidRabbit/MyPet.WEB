@@ -11,6 +11,7 @@ const MyAdsContainer = () => {
  
     const page = useRef(1);
     const [previousResponseLenght, setPreviousResponseLenght] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
     const navigate = useNavigate();
 
     const fetchMoreAds = () => {      
@@ -23,11 +24,9 @@ const MyAdsContainer = () => {
         setData(prevState => response.length > 0 ? prevState.concat(response) : prevState)})
       .catch(error => {
         console.error(error);
-      })
-      .finally(()=>{
-        setIsFetching(false);
-      })    
-      }    
+      })      
+      }
+      setIsFetching(false);    
   }
     const [setIsFetching] = useInfiniteScroll(fetchMoreAds) 
     const [data, setData] = useState([])
@@ -43,21 +42,23 @@ const MyAdsContainer = () => {
             navigate('/signin')
           }
           console.error(error)
-        })
-        .finally(()=>{
-          //do something
-        })
+        })    
+        setIsLoaded(true);
     },[])
     /*eslint-enable*/      
 
 
     return <div className = "my-ads-container">
-    {data && data.length > 0 ?
+    {isLoaded ? (
+      data && data.length > 0 ?
      data.map((item, index) => 
             <MyAdCard item = {item} key = {index}/>
         ) : ( 
-        <p className="not-found-string">У вас пока нет объявлений. <NavLink to="/addadvertisement">Добавить</NavLink></p>)}
-     </div>
+        <p className="not-found-string">У вас пока нет объявлений. <NavLink to="/addadvertisement">Добавить</NavLink></p>)
+    ) : (
+      null
+    )}
     
+    </div>
 }
 export default MyAdsContainer;

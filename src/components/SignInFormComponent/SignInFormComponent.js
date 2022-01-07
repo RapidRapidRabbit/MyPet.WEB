@@ -25,26 +25,24 @@ const SignInFormComponent = () => {
     formState: { errors },   
   } = useForm();
 
-  const onSubmit = async (formData) => {
+  const onSubmit = (formData) => {
     
     setIsLoaded(false);
 
-    await SignInService(formData)
+    SignInService(formData)
     .then(data => {              
       if(data.status >= 400){         
         setServerError(GetServerErrors(data.errors));
         return;
       }
-     auth.logIn(data); 
-     navigate('/');
+     auth.logIn(data);  
+     navigate('/');     
     })
     .catch(error =>{
       setServerError(["Что-то пошло не так, попробуйте позже."])
       console.error(error)
-    })
-    .finally(()=>{
       setIsLoaded(true);
-    })   
+    })        
   }
 
 

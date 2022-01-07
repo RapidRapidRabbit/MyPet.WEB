@@ -36,10 +36,8 @@ const SignUpFormComponent = () => {
     .catch(error => {
       setServerError(["Что-то пошло не так, попробуйте позже"]);
       console.error(error);
-    })
-    .finally(()=>{
       setIsLoaded(true);
-    })
+    })    
   }  
  
 

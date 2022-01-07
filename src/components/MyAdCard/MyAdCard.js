@@ -3,7 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./MyAdCard.css";
 import React, { useState, Fragment } from "react";
 import DeleteAdService from "../../services/Http/DeleteAdvertisementService/DeleteAdService";
-import switchCategory from "../../services/SwitchCategory/SwitchCategory";
+import { changeCategory } from "../../services/ValuesLocalization/ValuesLocalization";
 import { NavLink, useNavigate } from "react-router-dom";
 import UnathorizedAccessError from "../../features/CustomExceptions/Http/UnathorizedAccessError";
 import ForbiddenAccessError from "../../features/CustomExceptions/Http/ForbiddenAccessError";
@@ -22,11 +22,11 @@ const handleConfirmDeleteClick = (e) =>{
 
   DeleteAdService(item.id)
   .then(responseData => {
-
+    console.log(responseData);
       if(responseData.status >= 400){
         return;
       }        
-      navigate('/myads');     
+      navigate(0);     
   })
   .catch(error => {
     if(error instanceof UnathorizedAccessError || error instanceof ForbiddenAccessError){
@@ -34,10 +34,7 @@ const handleConfirmDeleteClick = (e) =>{
       navigate('/signin') 
     }
     console.error(error);
-  })
-  .finally(()=>{
-    //do something
-  })
+  })  
 }
 const handleResetClick = (e) =>{    
     setButtons(buttons);
@@ -78,7 +75,7 @@ const [currentButtons, setButtons] = useState(buttons)
     return<Fragment> <div className="card custom-card users-card">
         <img src={myPetApi+item.images[0].path} className="card-img-top custom-img" alt=":("></img>
     <div className="card-body custom-card-body">
-      <h5 className="card-title custom-card-title">{switchCategory(item.category) + ' ' + item.petName}</h5>
+      <h5 className="card-title custom-card-title">{changeCategory(item.category) + ' ' + item.petName}</h5>
       <h6 className="card-subtitle mb-2 text-muted">{item.locationTown + ', ' + item.locationStreet + ' ' + item.locationHouse}</h6>
       <p className="card-text custom-card-text">{item.description}</p>
 

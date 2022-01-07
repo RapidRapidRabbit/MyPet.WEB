@@ -16,6 +16,7 @@ import UnathorizedAccessError from "../../features/CustomExceptions/Http/Unathor
 const AddAdvertisementFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
   const navigate = useNavigate();
   const auth = useAuth()
 
@@ -26,7 +27,8 @@ const AddAdvertisementFormComponent = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    
+
+    setIsLoaded(false);
     let formData = new FormData();
 
     for (let key in data) {      
@@ -40,11 +42,10 @@ const AddAdvertisementFormComponent = () => {
       if(responseData.status === 400){                
         let errorsArr = GetServerErrors(responseData.errors);
         setServerError(errorsArr);
+        setIsLoaded(true);
         return;        
-      }
-      if(responseData.status >= 200 && responseData.status < 300){        
-       navigate("/myads");
-      }        
+      }              
+       navigate("/myads");              
      })
      .catch(error => {
         if(error instanceof UnathorizedAccessError){
@@ -52,12 +53,10 @@ const AddAdvertisementFormComponent = () => {
           navigate('/signin');
         }
         else{
-          setServerError(["Что-то пошло не так, попробуйте позже"])
+          setServerError(["Что-то пошло не так, попробуйте позже"]);
+          setIsLoaded(true);
         }
-     })
-     .finally(()=>{
-       //do something
-     })  
+     })   
   }
  
  
@@ -72,12 +71,13 @@ const addAdForm =
 <div className="mb-3">
   <label htmlFor="formFile" className="form-label">Фотография питомца
   </label>
-  <input className="form-control" type="file" id="formFile"
-   {...register('Image', {                        
+  <input className={"form-control " + (errors.Image  ? "is-invalid" : '')} type="file" id="formFile"
+   {...register('Image', { 
+     required: 'Обязательное поле',                       
           })} 
   ></input>
   <div className="invalid-feedback">    
-    {errors.Images && errors.Images.message}
+    {errors.Image && errors.Image.message}
     </div>     
 </div>
 <div className="mb-3">
@@ -185,7 +185,7 @@ const addAdForm =
     {errors.LocationStreet && errors.LocationStreet.message}
     </div>     
 </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
+  <button type="submit" className="btn btn-primary">Отправить {!isLoaded && <span className="spinner-border spinner-border-sm"></span>}</button>
 </form>
 </div>
 </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./HeaderComponent.css";
 import IsEmailConfirmedHeadComponent from "../IsEmailConfirmedHeadComponent/IsEmailConfirmedHeadComponent";
 import useAuth from "../../features/Hooks/useAuth";
@@ -13,7 +13,7 @@ const Header = () => {
     const auth = useAuth();
     const navigate = useNavigate();
       
- /* eslint-disable */
+ 
     useEffect(()=>{ 
     
     if(auth.isAuthed === true){      
@@ -23,16 +23,14 @@ const Header = () => {
     }else{
       setLogin(false);
     }
-      },[auth.isAuthed, auth.isAdmin])
- /* eslint-enable */
-      
+    // eslint-disable-next-line
+      },[auth.isAuthed, auth.isAdmin])   
     
     
-    
-    const handleMainPageLinkClick = (e) =>{
-        e.preventDefault();
-        window.location = "/";        
-    } 
+    // const handleMainPageLinkClick = (e) =>{
+    //     e.preventDefault();
+    //     window.location = "/";        
+    // } 
     
     const handleLogOutClick = (e) =>{
         e.preventDefault();
@@ -47,7 +45,8 @@ const Header = () => {
   <div className="container-fluid">
   <div className="left-header-block">
     <img className="logo-img" alt=":("></img>  
-  <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet App</button>
+  {/* <button type="button" className="btn btn-outline-primary main-page-link" onClick={handleMainPageLinkClick}>My Pet App</button> */}
+  <Link to="/" className="btn btn-outline-primary main-page-link">My Pet App</Link>
   </div>  
   <div className="is-sign-in-block">  
     {isLogin === true && 
