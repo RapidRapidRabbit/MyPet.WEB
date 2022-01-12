@@ -3,14 +3,15 @@ import "../../App.css";
 import { useForm } from 'react-hook-form';
 import SignUpService from "../../services/Http/SignUp/SignUpService";
 import { useState } from 'react';
-import { setCookie } from "../../services/GetSetCookieService";
 import { GetServerErrors } from "../../services/ServerValidationService/ServerValidationService";
+import { useNavigate } from "react-router";
 
 
 const SignUpFormComponent = () => {
 
   const [serverErrors, setServerError] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
+  const navigate = useNavigate();
   
 
   const {
@@ -27,11 +28,11 @@ const SignUpFormComponent = () => {
      SignUpService(formData)
      .then(data => {    
         if(data.status >= 400 ){
-         setServerError(GetServerErrors(data.errors));         
+         setServerError(GetServerErrors(data.errors));
+         setIsLoaded(true);         
          return;
-        }        
-      setCookie("jwttoken", data.jwttoken);
-      window.location = '/';             
+        } 
+     navigate(`/signupresult?result=${data.registrationResult}&emailsendingresult=${data.isEmailSend}`)             
     })
     .catch(error => {
       setServerError(["Что-то пошло не так, попробуйте позже"]);

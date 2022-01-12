@@ -4,7 +4,7 @@ import BaseHttpService from "../BaseHttpService";
  const AddAdvertisementService = async (data) =>{    
 
     const requestOptions = {
-            method: 'PUT',           
+            method: 'POST',           
             body: data,        
         };            
      

@@ -33,6 +33,7 @@ const SignInFormComponent = () => {
     .then(data => {              
       if(data.status >= 400){         
         setServerError(GetServerErrors(data.errors));
+        setIsLoaded(true);
         return;
       }
      auth.logIn(data);  

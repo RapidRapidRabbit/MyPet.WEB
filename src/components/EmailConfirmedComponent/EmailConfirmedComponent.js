@@ -26,10 +26,7 @@ const EmailConfirmedComponent = (props) =>{
         .catch(error => {
             setConfirmingStatus(false);
             console.error(error);
-        })
-        .finally(()=>{
-            //do something
-        });
+        })    
         let timer = setInterval(()=>{setSeconds(seconds => seconds - 1);}, 1000);
         return () => clearInterval(timer);
     },[])

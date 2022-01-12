@@ -160,7 +160,7 @@ const addAdForm =
     </div>     
 </div>
 <div className="mb-3">
-  <label htmlFor="FormControlInput4" className="form-label">Номер дома (попробуем показать на карте)</label>
+  <label htmlFor="FormControlInput4" className="form-label">Номер дома</label>
   <input type="text" className={"form-control " + (errors.LocationHouse  ? "is-invalid" : '')} id="FormControlInput4" placeholder="1"
   {...register('LocationHouse', {
             required: 'Обязательное поле',           
